@@ -1,0 +1,388 @@
+/* =========================================================
+   SHARED EVENTS TEMPLATE
+   ========================================================= */
+
+.cpf-events-listing-page,
+.cpf-event-detail-page {
+    min-height: 100vh;
+}
+
+.cpf-events-listing-page .container,
+.cpf-event-detail-page .container {
+    max-width: 1320px;
+}
+
+.cpf-events-listing-page .card,
+.cpf-events-listing-page .o_wevent_event_card {
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cpf-events-listing-page .card:hover,
+.cpf-events-listing-page .o_wevent_event_card:hover {
+    transform: translateY(-4px);
+}
+
+.cpf-events-listing-page h1 {
+    display: none !important;
+}
+
+
+/* =========================================================
+   LOUVRE-INSPIRED EVENTS PAGE
+   ========================================================= */
+
+.theme-louvre.cpf-events-listing-page {
+    background: #f6f1e8 !important;
+    color: #111 !important;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.theme-louvre.cpf-events-listing-page::before {
+    content: "Events";
+    display: block;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 72px 24px 14px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 64px;
+    line-height: 1;
+    font-weight: 700;
+    color: #111;
+    border-bottom: 1px solid #c9a84c;
+}
+
+.theme-louvre.cpf-events-listing-page::after {
+    content: "Museum programme and special events";
+    display: block;
+    max-width: 1320px;
+    margin: 0 auto 36px;
+    padding: 0 24px 28px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    color: #5d5448;
+}
+
+.theme-louvre.cpf-events-listing-page a {
+    color: #8b1e3f !important;
+}
+
+.theme-louvre.cpf-events-listing-page .btn,
+.theme-louvre.cpf-events-listing-page .btn-primary {
+    background: #111 !important;
+    border-color: #111 !important;
+    color: #fff !important;
+    border-radius: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+}
+
+.theme-louvre.cpf-events-listing-page .btn:hover {
+    background: #8b1e3f !important;
+    border-color: #8b1e3f !important;
+}
+
+.theme-louvre.cpf-events-listing-page .card,
+.theme-louvre.cpf-events-listing-page .o_wevent_event_card,
+.theme-louvre.cpf-events-listing-page article {
+    background: #fffaf2 !important;
+    border: 1px solid #d8ccba !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.theme-louvre.cpf-events-listing-page .card-title,
+.theme-louvre.cpf-events-listing-page h2,
+.theme-louvre.cpf-events-listing-page h3,
+.theme-louvre.cpf-events-listing-page h4 {
+    color: #111 !important;
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-weight: 700;
+}
+
+.theme-louvre.cpf-events-listing-page .card-title,
+.theme-louvre.cpf-events-listing-page h3 {
+    font-size: 28px;
+    line-height: 1.1;
+}
+
+.theme-louvre.cpf-events-listing-page img {
+    border-radius: 0 !important;
+    filter: saturate(0.92) contrast(1.03);
+}
+
+.theme-louvre.cpf-events-listing-page .badge,
+.theme-louvre.cpf-events-listing-page .o_wevent_badge,
+.theme-louvre.cpf-events-listing-page .text-bg-primary {
+    background: #8b1e3f !important;
+    color: white !important;
+    border-radius: 0 !important;
+}
+
+.theme-louvre.cpf-events-listing-page input,
+.theme-louvre.cpf-events-listing-page select,
+.theme-louvre.cpf-events-listing-page .form-control,
+.theme-louvre.cpf-events-listing-page .dropdown-toggle {
+    background: #fffaf2 !important;
+    border: 1px solid #d8ccba !important;
+    border-radius: 0 !important;
+    color: #111 !important;
+}
+
+.theme-louvre.cpf-events-listing-page .o_wevent_events_topbar,
+.theme-louvre.cpf-events-listing-page .o_wevent_index_topbar {
+    background: transparent !important;
+    border: 0 !important;
+}
+
+
+/* =========================================================
+   LOUVRE-INSPIRED EVENT DETAIL PAGE
+   ========================================================= */
+
+.theme-louvre.cpf-event-detail-page,
+.theme-louvre.o_wevent_event {
+    background: #f6f1e8 !important;
+    color: #111 !important;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.theme-louvre.cpf-event-detail-page h1,
+.theme-louvre.cpf-event-detail-page h2,
+.theme-louvre.cpf-event-detail-page h3,
+.theme-louvre.cpf-event-detail-page h4,
+.theme-louvre.o_wevent_event h1,
+.theme-louvre.o_wevent_event h2,
+.theme-louvre.o_wevent_event h3,
+.theme-louvre.o_wevent_event h4 {
+    color: #111 !important;
+    font-family: Georgia, "Times New Roman", serif !important;
+}
+
+.theme-louvre.cpf-event-detail-page a,
+.theme-louvre.o_wevent_event a {
+    color: #8b1e3f !important;
+}
+
+.theme-louvre.cpf-event-detail-page .btn,
+.theme-louvre.cpf-event-detail-page .btn-primary,
+.theme-louvre.o_wevent_event .btn,
+.theme-louvre.o_wevent_event .btn-primary {
+    background: #111 !important;
+    border-color: #111 !important;
+    color: #fff !important;
+    border-radius: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.theme-louvre.cpf-event-detail-page .btn:hover,
+.theme-louvre.o_wevent_event .btn:hover {
+    background: #8b1e3f !important;
+    border-color: #8b1e3f !important;
+}
+
+.theme-louvre.cpf-event-detail-page .card,
+.theme-louvre.cpf-event-detail-page .border,
+.theme-louvre.o_wevent_event .card,
+.theme-louvre.o_wevent_event .border {
+    background: #fffaf2 !important;
+    border-color: #d8ccba !important;
+    border-radius: 0 !important;
+}
+
+.theme-louvre.cpf-event-detail-page .o_wevent_event_name,
+.theme-louvre.cpf-event-detail-page .o_wevent_event_title,
+.theme-louvre.cpf-event-detail-page .display-3,
+.theme-louvre.cpf-event-detail-page .display-4,
+.theme-louvre.o_wevent_event .o_wevent_event_name,
+.theme-louvre.o_wevent_event .o_wevent_event_title,
+.theme-louvre.o_wevent_event .display-3,
+.theme-louvre.o_wevent_event .display-4 {
+    color: #111 !important;
+    border-bottom: 2px solid #c9a84c;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+
+/* =========================================================
+   HERMITAGE-INSPIRED EVENTS PAGE
+   ========================================================= */
+
+.theme-hermitage.cpf-events-listing-page {
+    background: #eef1e6 !important;
+    color: #12251b !important;
+    font-family: "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+.theme-hermitage.cpf-events-listing-page::before {
+    content: "Events";
+    display: block;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 72px 24px 14px;
+    font-family: "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 62px;
+    line-height: 1;
+    font-weight: 700;
+    color: #123524;
+    border-bottom: 2px solid #d4af37;
+}
+
+.theme-hermitage.cpf-events-listing-page::after {
+    content: "Museum events and cultural programme";
+    display: block;
+    max-width: 1320px;
+    margin: 0 auto 36px;
+    padding: 0 24px 28px;
+    font-family: "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 20px;
+    color: #405a4a;
+}
+
+.theme-hermitage.cpf-events-listing-page a {
+    color: #1b4332 !important;
+}
+
+.theme-hermitage.cpf-events-listing-page .btn,
+.theme-hermitage.cpf-events-listing-page .btn-primary {
+    background: #1b4332 !important;
+    border-color: #1b4332 !important;
+    color: #fff !important;
+    border-radius: 2px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+}
+
+.theme-hermitage.cpf-events-listing-page .btn:hover {
+    background: #10291f !important;
+    border-color: #10291f !important;
+}
+
+.theme-hermitage.cpf-events-listing-page .card,
+.theme-hermitage.cpf-events-listing-page .o_wevent_event_card,
+.theme-hermitage.cpf-events-listing-page article {
+    background: #fbf8ef !important;
+    border: 1px solid #d4af37 !important;
+    border-radius: 2px !important;
+    box-shadow: 0 10px 28px rgba(27, 67, 50, 0.08) !important;
+}
+
+.theme-hermitage.cpf-events-listing-page .card-title,
+.theme-hermitage.cpf-events-listing-page h2,
+.theme-hermitage.cpf-events-listing-page h3,
+.theme-hermitage.cpf-events-listing-page h4 {
+    color: #1b4332 !important;
+    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
+    font-weight: 700;
+}
+
+.theme-hermitage.cpf-events-listing-page .card-title,
+.theme-hermitage.cpf-events-listing-page h3 {
+    font-size: 28px;
+    line-height: 1.1;
+}
+
+.theme-hermitage.cpf-events-listing-page img {
+    border-radius: 2px !important;
+    filter: saturate(0.9) contrast(1.04);
+}
+
+.theme-hermitage.cpf-events-listing-page .badge,
+.theme-hermitage.cpf-events-listing-page .o_wevent_badge,
+.theme-hermitage.cpf-events-listing-page .text-bg-primary {
+    background: #d4af37 !important;
+    color: #13251c !important;
+    border-radius: 2px !important;
+}
+
+.theme-hermitage.cpf-events-listing-page input,
+.theme-hermitage.cpf-events-listing-page select,
+.theme-hermitage.cpf-events-listing-page .form-control,
+.theme-hermitage.cpf-events-listing-page .dropdown-toggle {
+    background: #fbf8ef !important;
+    border: 1px solid #d4af37 !important;
+    border-radius: 2px !important;
+    color: #12251b !important;
+}
+
+.theme-hermitage.cpf-events-listing-page .o_wevent_events_topbar,
+.theme-hermitage.cpf-events-listing-page .o_wevent_index_topbar {
+    background: transparent !important;
+    border: 0 !important;
+}
+
+
+/* =========================================================
+   HERMITAGE-INSPIRED EVENT DETAIL PAGE
+   ========================================================= */
+
+.theme-hermitage.cpf-event-detail-page,
+.theme-hermitage.o_wevent_event {
+    background: #eef1e6 !important;
+    color: #12251b !important;
+    font-family: "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+.theme-hermitage.cpf-event-detail-page h1,
+.theme-hermitage.cpf-event-detail-page h2,
+.theme-hermitage.cpf-event-detail-page h3,
+.theme-hermitage.cpf-event-detail-page h4,
+.theme-hermitage.o_wevent_event h1,
+.theme-hermitage.o_wevent_event h2,
+.theme-hermitage.o_wevent_event h3,
+.theme-hermitage.o_wevent_event h4 {
+    color: #1b4332 !important;
+    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
+}
+
+.theme-hermitage.cpf-event-detail-page a,
+.theme-hermitage.o_wevent_event a {
+    color: #1b4332 !important;
+}
+
+.theme-hermitage.cpf-event-detail-page .btn,
+.theme-hermitage.cpf-event-detail-page .btn-primary,
+.theme-hermitage.o_wevent_event .btn,
+.theme-hermitage.o_wevent_event .btn-primary {
+    background: #1b4332 !important;
+    border-color: #1b4332 !important;
+    color: #fff !important;
+    border-radius: 2px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.theme-hermitage.cpf-event-detail-page .btn:hover,
+.theme-hermitage.o_wevent_event .btn:hover {
+    background: #10291f !important;
+    border-color: #10291f !important;
+}
+
+.theme-hermitage.cpf-event-detail-page .card,
+.theme-hermitage.cpf-event-detail-page .border,
+.theme-hermitage.o_wevent_event .card,
+.theme-hermitage.o_wevent_event .border {
+    background: #fbf8ef !important;
+    border: 1px solid #d4af37 !important;
+    border-radius: 2px !important;
+}
+
+.theme-hermitage.cpf-event-detail-page .o_wevent_event_name,
+.theme-hermitage.cpf-event-detail-page .o_wevent_event_title,
+.theme-hermitage.cpf-event-detail-page .display-3,
+.theme-hermitage.cpf-event-detail-page .display-4,
+.theme-hermitage.o_wevent_event .o_wevent_event_name,
+.theme-hermitage.o_wevent_event .o_wevent_event_title,
+.theme-hermitage.o_wevent_event .display-3,
+.theme-hermitage.o_wevent_event .display-4 {
+    color: #1b4332 !important;
+    border-bottom: 2px solid #d4af37;
+    display: inline-block;
+    padding-bottom: 8px;
+}

@@ -1,0 +1,142 @@
+<odoo>
+  <template id="event_listing_custom_layout" inherit_id="website_event.index">
+    <xpath expr="//div[@id='wrap']" position="inside">
+      <t t-set="active_theme_class" t-value="request.env['cpf.event.theme'].sudo().get_active_listing_theme_class()"/>
+      <t t-set="published_events" t-value="request.env['event.event'].sudo().search([('website_published', '=', True)], order='date_begin asc', limit=8)"/>
+
+      <div t-attf-class="cpf-custom-events #{active_theme_class}">
+
+        <!-- =========================
+             LOUVRE CUSTOM LISTING
+             ========================= -->
+        <t t-if="'theme-louvre' in active_theme_class">
+          <section class="cpf-louvre-shell">
+            <div class="cpf-louvre-tabs">
+              <span class="cpf-louvre-tab">EXHIBITIONS</span>
+              <span class="cpf-louvre-tab cpf-louvre-tab--active">EVENTS &amp; ACTIVITIES</span>
+              <span class="cpf-louvre-tab">GUIDED TOURS</span>
+            </div>
+
+            <div class="cpf-louvre-toolbar">
+              <div class="cpf-louvre-filter">ALL DATES</div>
+              <div class="cpf-louvre-chip">Night opening</div>
+              <div class="cpf-louvre-filter-small">Type</div>
+              <div class="cpf-louvre-filter-small">Public</div>
+              <div class="cpf-louvre-filter-small">Age</div>
+            </div>
+
+            <div class="cpf-louvre-month">APRIL 2026</div>
+
+            <t t-foreach="published_events" t-as="event">
+              <article class="cpf-louvre-row">
+                <div class="cpf-louvre-row__date">
+                  <div class="cpf-louvre-row__date-line" t-esc="event.date_begin.strftime('%d %B %Y') if event.date_begin else ''"/>
+                  <div class="cpf-louvre-row__date-line" t-if="event.date_end" t-esc="event.date_end.strftime('%d %B %Y')"/>
+                </div>
+
+                <div class="cpf-louvre-row__image">
+                  <a t-att-href="event.website_url">
+                    <img t-if="event.badge_image"
+                         t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
+                         t-att-alt="event.name"/>
+                  </a>
+                </div>
+
+                <div class="cpf-louvre-row__content">
+                  <div class="cpf-louvre-badge">Workshops</div>
+                  <h3 class="cpf-louvre-title">
+                    <a t-att-href="event.website_url" t-esc="event.name"/>
+                  </h3>
+                  <div class="cpf-louvre-meta" t-if="event.date_begin">
+                    From <span t-esc="event.date_begin.strftime('%d %B %Y')"/> 
+                    <t t-if="event.date_end">to <span t-esc="event.date_end.strftime('%d %B %Y')"/></t>
+                  </div>
+                  <div class="cpf-louvre-location" t-if="event.address_id">
+                    <span t-esc="event.address_id.city or event.address_id.name or 'Museum location'"/>
+                  </div>
+                </div>
+
+                <div class="cpf-louvre-row__cta">
+                  <a t-att-href="event.website_url" class="cpf-louvre-discover">Discover →</a>
+                </div>
+              </article>
+            </t>
+          </section>
+        </t>
+
+        <!-- =========================
+             HERMITAGE CUSTOM LISTING
+             ========================= -->
+        <t t-if="'theme-hermitage' in active_theme_class">
+          <t t-foreach="published_events[:1]" t-as="event">
+            <section class="cpf-hermitage-feature">
+              <img t-if="event.badge_image"
+                   t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
+                   t-att-alt="event.name"
+                   class="cpf-hermitage-feature__img"/>
+
+              <div class="cpf-hermitage-feature__overlay"></div>
+
+              <div class="cpf-hermitage-feature__content">
+                <div class="cpf-hermitage-feature__place">
+                  <t t-esc="event.address_id and (event.address_id.name or event.address_id.city) or 'Главный музейный комплекс'"/>
+                </div>
+                <div class="cpf-hermitage-feature__date" t-if="event.date_begin">
+                  <span t-esc="event.date_begin.strftime('%d %B %Y')"/>
+                  <t t-if="event.date_end"> – <span t-esc="event.date_end.strftime('%d %B %Y')"/></t>
+                </div>
+                <h2 class="cpf-hermitage-feature__title">
+                  <a t-att-href="event.website_url" t-esc="event.name"/>
+                </h2>
+              </div>
+            </section>
+          </t>
+
+          <section class="cpf-hermitage-shell">
+            <h2 class="cpf-hermitage-heading">Выставки и события</h2>
+            <h3 class="cpf-hermitage-subheading">Текущие выставки</h3>
+
+            <div class="cpf-hermitage-actions">
+              <span class="cpf-hermitage-action">АНОНС ВЫСТАВОК ›</span>
+              <span class="cpf-hermitage-action">АРХИВ ВЫСТАВОК ›</span>
+              <span class="cpf-hermitage-action">ВЫСТАВКИ В ДРУГИХ МУЗЕЯХ ›</span>
+            </div>
+
+            <div class="cpf-hermitage-grid">
+              <t t-foreach="published_events[1:7]" t-as="event">
+                <article class="cpf-hermitage-card">
+                  <div class="cpf-hermitage-card__imgwrap">
+                    <a t-att-href="event.website_url">
+                      <img t-if="event.badge_image"
+                           t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
+                           t-att-alt="event.name"
+                           class="cpf-hermitage-card__img"/>
+                    </a>
+                  </div>
+
+                  <div class="cpf-hermitage-card__body">
+                    <div class="cpf-hermitage-card__date" t-if="event.date_begin">
+                      <span t-esc="event.date_begin.strftime('%d %B %Y')"/>
+                      <t t-if="event.date_end"> – <span t-esc="event.date_end.strftime('%d %B %Y')"/></t>
+                    </div>
+
+                    <h4 class="cpf-hermitage-card__title">
+                      <a t-att-href="event.website_url" t-esc="event.name"/>
+                    </h4>
+
+                    <div class="cpf-hermitage-card__location" t-if="event.address_id">
+                      <span t-esc="event.address_id.name or event.address_id.city"/>
+                    </div>
+
+                    <a t-att-href="event.website_url" class="cpf-hermitage-card__more">Подробнее ›</a>
+                  </div>
+                </article>
+              </t>
+            </div>
+          </section>
+        </t>
+
+      </div>
+    </xpath>
+  </template>
+</odoo>

@@ -1,0 +1,169 @@
+<odoo>
+  <!-- Switch default event detail template by theme -->
+  <template id="event_detail_custom_switcher" inherit_id="website_event.event_description_full">
+    <xpath expr="//t[@t-call='website_event.event_details']" position="replace">
+
+      <t t-call="website_event.event_details">
+        <t t-if="request.env['cpf.event.theme'].sudo().get_active_listing_theme_class() == 'theme-louvre'">
+          <t t-call="cpf_event_themes.louvre_event_detail"/>
+        </t>
+
+        <t t-elif="request.env['cpf.event.theme'].sudo().get_active_listing_theme_class() == 'theme-hermitage'">
+          <t t-call="cpf_event_themes.hermitage_event_detail"/>
+        </t>
+      </t>
+
+    </xpath>
+</template>
+
+  <!-- =========================
+       LOUVRE DETAIL PAGE
+       ========================= -->
+  <template id="louvre_event_detail">
+    <section class="cpf-louvre-detail">
+
+      <div class="cpf-louvre-detail__hero">
+        <img t-if="event.badge_image"
+             t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
+             t-att-alt="event.name"/>
+
+        <div class="cpf-louvre-detail__hero-overlay"></div>
+
+        <div class="cpf-louvre-detail__hero-content">
+          <div class="cpf-louvre-detail__hero-kicker">EXHIBITIONS AND EVENTS</div>
+          <h1 class="cpf-louvre-detail__hero-title" t-esc="event.name"/>
+          <div class="cpf-louvre-detail__hero-date" t-if="event.date_begin">
+            <span t-esc="event.date_begin.strftime('%d %B %Y')"/>
+            <t t-if="event.date_end"> – <span t-esc="event.date_end.strftime('%d %B %Y')"/></t>
+          </div>
+        </div>
+      </div>
+
+      <div class="cpf-louvre-detail__body">
+        <div class="cpf-louvre-detail__main">
+          <div class="cpf-louvre-detail__badge">Workshops</div>
+
+          <h2 class="cpf-louvre-detail__title" t-esc="event.name"/>
+
+          <div class="cpf-louvre-detail__dateblock" t-if="event.date_begin">
+            <span t-esc="event.date_begin.strftime('%d %B %Y')"/>
+            <t t-if="event.date_end"> – <span t-esc="event.date_end.strftime('%d %B %Y')"/></t>
+          </div>
+
+          <div class="cpf-louvre-detail__description" t-field="event.description"/>
+
+          <div class="cpf-louvre-detail__cta-row">
+            <a t-att-href="event.website_url + '/register'" class="cpf-louvre-detail__register">
+              Register
+            </a>
+          </div>
+        </div>
+
+        <aside class="cpf-louvre-detail__aside">
+          <div class="cpf-louvre-detail__info-card">
+            <div class="cpf-louvre-detail__info-row">
+              <div class="cpf-louvre-detail__info-label">Admission</div>
+              <div class="cpf-louvre-detail__info-value">FREE WITH MUSEUM TICKET</div>
+            </div>
+
+            <div class="cpf-louvre-detail__info-row">
+              <div class="cpf-louvre-detail__info-label">Location</div>
+              <div class="cpf-louvre-detail__info-value">
+                <t t-if="event.address_id">
+                  <span t-esc="event.address_id.name or event.address_id.city or 'Museum location'"/>
+                </t>
+                <t t-else="">Museum location</t>
+              </div>
+            </div>
+
+            <div class="cpf-louvre-detail__info-row">
+              <div class="cpf-louvre-detail__info-label">Date</div>
+              <div class="cpf-louvre-detail__info-value">
+                <t t-if="event.date_begin">
+                  <span t-esc="event.date_begin.strftime('%d %B %Y')"/>
+                  <t t-if="event.date_end"> – <span t-esc="event.date_end.strftime('%d %B %Y')"/></t>
+                </t>
+              </div>
+            </div>
+          </div>
+
+          <a href="#" class="cpf-louvre-detail__share">Share article</a>
+        </aside>
+      </div>
+    </section>
+  </template>
+
+  <!-- =========================
+       HERMITAGE DETAIL PAGE
+       ========================= -->
+  <template id="hermitage_event_detail">
+    <section class="cpf-hermitage-detail">
+
+      <div class="cpf-hermitage-detail__hero">
+        <img t-if="event.badge_image"
+             t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
+             t-att-alt="event.name"/>
+
+        <div class="cpf-hermitage-detail__hero-overlay"></div>
+
+        <div class="cpf-hermitage-detail__hero-label">ВЫСТАВКИ И СОБЫТИЯ</div>
+      </div>
+
+      <div class="cpf-hermitage-detail__content">
+        <div class="cpf-hermitage-detail__crumb">Выставки и события</div>
+
+        <h1 class="cpf-hermitage-detail__title" t-esc="event.name"/>
+
+        <div class="cpf-hermitage-detail__grid">
+          <div class="cpf-hermitage-detail__main">
+            <div class="cpf-hermitage-detail__lead" t-field="event.description"/>
+
+            <t t-if="event.badge_image">
+              <div class="cpf-hermitage-detail__gallery">
+                <img t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
+                     t-att-alt="event.name"/>
+              </div>
+            </t>
+          </div>
+
+          <aside class="cpf-hermitage-detail__aside">
+            <h3 class="cpf-hermitage-detail__aside-title">Об экспозиции</h3>
+
+            <div class="cpf-hermitage-detail__meta-row">
+              <div class="cpf-hermitage-detail__meta-label">Когда:</div>
+              <div class="cpf-hermitage-detail__meta-value">
+                <t t-if="event.date_begin">
+                  <span t-esc="event.date_begin.strftime('%d %B %Y')"/>
+                  <t t-if="event.date_end"> - <span t-esc="event.date_end.strftime('%d %B %Y')"/></t>
+                </t>
+              </div>
+            </div>
+
+            <div class="cpf-hermitage-detail__meta-row">
+              <div class="cpf-hermitage-detail__meta-label">Где:</div>
+              <div class="cpf-hermitage-detail__meta-value">
+                <t t-if="event.address_id">
+                  <span t-esc="event.address_id.name or ''"/>
+                  <t t-if="event.address_id.city">
+                    <br/>
+                    <span t-esc="event.address_id.city"/>
+                  </t>
+                </t>
+                <t t-else="">Главный музейный комплекс</t>
+              </div>
+            </div>
+
+            <div class="cpf-hermitage-detail__meta-row">
+              <div class="cpf-hermitage-detail__meta-label">Регистрация:</div>
+              <div class="cpf-hermitage-detail__meta-value">
+                <a t-att-href="event.website_url + '/register'" class="cpf-hermitage-detail__register">
+                  Подробнее / Register
+                </a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </template>
+</odoo>
