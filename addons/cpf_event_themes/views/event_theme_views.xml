@@ -34,6 +34,27 @@
     <field name="view_mode">list,form</field>
   </record>
 
+  <record id="cpf_event_theme_yeltsin" model="cpf.event.theme">
+    <field name="name">Yeltsin Center</field>
+    <field name="css_class">cpf-theme-yeltsin</field>
+    <field name="preview_color">#2F66FF</field>
+    <field name="is_listing_theme">False</field>
+  </record>
+
+  <record id="cpf_event_theme_louvre" model="cpf.event.theme">
+    <field name="name">Louvre</field>
+    <field name="css_class">theme-louvre</field>
+    <field name="preview_color">#000000</field>
+    <field name="is_listing_theme">False</field>
+  </record>
+
+  <record id="cpf_event_theme_Hermitrage" model="cpf.event.theme">
+    <field name="name">Hermitrage</field>
+    <field name="css_class">theme-hermitage</field>
+    <field name="preview_color">#000000</field>
+    <field name="is_listing_theme">False</field>
+  </record>
+
   <menuitem id="menu_cpf_themes"
             name="Themes"
             parent="event.event_main_menu"

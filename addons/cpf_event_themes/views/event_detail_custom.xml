@@ -11,8 +11,12 @@
         <t t-elif="request.env['cpf.event.theme'].sudo().get_active_listing_theme_class() == 'theme-hermitage'">
           <t t-call="cpf_event_themes.hermitage_event_detail"/>
         </t>
-      </t>
+      
 
+        <t t-elif="request.env['cpf.event.theme'].sudo().get_active_listing_theme_class() == 'cpf-theme-yeltsin'">
+          <t t-call="cpf_event_themes.yeltsin_event_detail"/>
+        </t>
+      </t>
     </xpath>
 </template>
 
@@ -23,9 +27,9 @@
     <section class="cpf-louvre-detail">
 
       <div class="cpf-louvre-detail__hero">
-        <img t-if="event.badge_image"
-             t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
-             t-att-alt="event.name"/>
+        <img
+              t-att-src="('/web/image/event.event/%s/badge_image' % event.id if event.badge_image else '/cpf_event_themes/static/src/img/elt1.jpg')"
+              t-att-alt="event.name"/>
 
         <div class="cpf-louvre-detail__hero-overlay"></div>
 
@@ -100,9 +104,9 @@
     <section class="cpf-hermitage-detail">
 
       <div class="cpf-hermitage-detail__hero">
-        <img t-if="event.badge_image"
-             t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
-             t-att-alt="event.name"/>
+        <img
+              t-att-src="('/web/image/event.event/%s/badge_image' % event.id if event.badge_image else '/cpf_event_themes/static/src/img/elt1.jpg')"
+              t-att-alt="event.name"/>
 
         <div class="cpf-hermitage-detail__hero-overlay"></div>
 
@@ -166,4 +170,123 @@
       </div>
     </section>
   </template>
+
+  <template id="yeltsin_event_detail" name="Yeltsin Event Detail">
+    <!-- Картинка для каждого события -->
+    <t t-set="img_src"
+       t-value="'/cpf_event_themes/static/src/img/elt1.jpg' if event.name == 'event1'
+                else '/cpf_event_themes/static/src/img/elt2.jpg' if event.name == 'event2'
+                else '/cpf_event_themes/static/src/img/elt3.jpg' if event.name == 'event3'
+                else ('/web/image/event.event/%s/badge_image' % event.id if event.badge_image else '/cpf_event_themes/static/src/img/elt1.jpg')"/>
+
+    <!-- Даты -->
+    <t t-set="date_from_day" t-value="event.date_begin.strftime('%d') if event.date_begin else ''"/>
+    <t t-set="date_to_day" t-value="event.date_end.strftime('%d') if event.date_end else (event.date_begin.strftime('%d') if event.date_begin else '')"/>
+    <t t-set="date_from_mon" t-value="event.date_begin.strftime('%b').upper() if event.date_begin else ''"/>
+    <t t-set="date_to_mon" t-value="event.date_end.strftime('%b').upper() if event.date_end else (event.date_begin.strftime('%b').upper() if event.date_begin else '')"/>
+
+    <section class="cpf-theme-yeltsin yc-detail-page">
+        <div class="yc-container">
+
+            <!-- Верхний блок -->
+            <div class="yc-detail-top">
+
+                <!-- Левая часть: дата + фото -->
+                <div class="yc-detail-visual">
+                    <div class="yc-detail-datebox" t-if="event.date_begin">
+                        <div class="yc-detail-datebox__days">
+                            <span t-esc="date_from_day"/>
+                            <span class="yc-detail-datebox__dash">–</span>
+                            <span t-esc="date_to_day"/>
+                        </div>
+                        <div class="yc-detail-datebox__months">
+                            <span t-esc="date_from_mon"/>
+                            <span t-if="event.date_end" t-esc="date_to_mon"/>
+                            <span t-if="not event.date_end" t-esc="date_from_mon"/>
+                        </div>
+                    </div>
+
+                    <div class="yc-detail-image-wrap">
+                        <img class="yc-detail-image"
+                             t-att-src="img_src"
+                             t-att-alt="event.name"/>
+                    </div>
+                </div>
+
+                <!-- Правая часть: заголовок и мета -->
+                <div class="yc-detail-main">
+                    <div class="yc-detail-labels">
+                        <span class="yc-detail-city">
+                            <t t-out="(event.address_id.city or 'МОСКВА').upper() if event.address_id and event.address_id.city else 'МОСКВА'"/>
+                        </span>
+
+                        <span class="yc-detail-type">
+                            <t t-out="(event.event_type_id.name or 'СОБЫТИЕ').upper() if event.event_type_id else 'СОБЫТИЕ'"/>
+                        </span>
+                    </div>
+
+                    <h1 class="yc-detail-title">
+                        <t t-out="event.name"/>
+                    </h1>
+
+                    <div class="yc-detail-admission">Вход свободный</div>
+
+                    <div class="yc-detail-meta">
+
+                        <div class="yc-detail-meta-item">
+                            <div class="yc-detail-icon yc-detail-icon--time">●</div>
+                            <div class="yc-detail-meta-text">
+                                <div class="yc-detail-meta-strong">
+                                    <t t-if="event.date_begin">
+                                        <t t-out="event.date_begin.strftime('%H:%M')"/>
+                                    </t>
+                                    <t t-if="event.date_end">
+                                        — <t t-out="event.date_end.strftime('%H:%M')"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="yc-detail-meta-item">
+                            <div class="yc-detail-icon yc-detail-icon--place">●</div>
+                            <div class="yc-detail-meta-text">
+                                <div class="yc-detail-meta-strong">
+                                    <t t-out="event.address_id.name if event.address_id else 'Место проведения'"/>
+                                </div>
+
+                                <div class="yc-detail-meta-sub" t-if="event.address_id">
+                                    <t t-if="event.address_id.city">
+                                        <span t-out="event.address_id.city"/>
+                                    </t>
+                                    <t t-if="event.address_id.city and event.address_id.street">
+                                        <span>, </span>
+                                    </t>
+                                    <t t-if="event.address_id.street">
+                                        <span t-out="event.address_id.street"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Текст снизу -->
+            <div class="yc-detail-body">
+                <div class="yc-detail-body-inner">
+                    <t t-if="event.description">
+                        <div t-field="event.description" class="yc-detail-richtext"/>
+                    </t>
+                    <t t-elif="event.subtitle">
+                        <p class="yc-detail-fallback">
+                            <t t-out="event.subtitle"/>
+                        </p>
+                    </t>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</template>
 </odoo>

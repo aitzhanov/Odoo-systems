@@ -1,0 +1,59 @@
+/* Navbar */
+body[data-cpf-theme="louvre"] .o_main_navbar,
+body[data-cpf-theme="louvre"] .o_main_navbar a {
+    background: #0a0a0a !important;
+}
+body[data-cpf-theme="louvre"] .o_main_navbar .o_menu_brand,
+body[data-cpf-theme="louvre"] .o_main_navbar a {
+    color: #e8e0d0 !important;
+}
+body[data-cpf-theme="louvre"] .o_main_navbar a:hover {
+    color: #c5a253 !important;
+}
+
+/* Кнопки — золотые в стиле Louvre */
+body[data-cpf-theme="louvre"] .btn-primary {
+    background: #c5a253 !important;
+    border-color: #c5a253 !important;
+    color: #0a0a0a !important;
+}
+body[data-cpf-theme="louvre"] .btn-primary:hover {
+    background: #d4b466 !important;
+}
+
+/* Dropdown */
+body[data-cpf-theme="louvre"] .dropdown-menu {
+    background: #1a1a18 !important;
+    border-color: #2e2e2c !important;
+}
+
+body[data-cpf-theme="louvre"] a.o-dropdown-item.dropdown-item.o-navigable.o_menu_brand.d-flex {
+    padding-left: 10px;
+}
+body[data-cpf-theme="louvre"] .dropdown-item {
+    color: #e8e0d0 !important;
+    text-align: center !important; 
+}
+body[data-cpf-theme="louvre"] .dropdown-item:hover {
+    background: #252523 !important;
+    color: #c5a253 !important;
+}
+
+/* Убираем фиолетовый цвет ссылок в navbar */
+body[data-cpf-theme="louvre"] .o_main_navbar .o_menu_sections a,
+body[data-cpf-theme="louvre"] .o_main_navbar .o_menu_sections .o_nav_entry,
+body[data-cpf-theme="louvre"] .o_main_navbar .o_menu_sections span,
+body[data-cpf-theme="louvre"] .o_main_navbar .o_menu_sections li a,
+body[data-cpf-theme="louvre"] .o_main_navbar * {
+    background: #0a0a0a !important;
+    color: #e8e0d0 !important;
+}
+body[data-cpf-theme="louvre"] .o_main_navbar *:hover {
+    color: #c5a253 !important;
+}
+/* Активный пункт меню */
+body[data-cpf-theme="louvre"] .o_main_navbar .o_nav_entry.active,
+body[data-cpf-theme="louvre"] .o_main_navbar .show > .o_nav_entry {
+    color: #c5a253 !important;
+    background: rgba(197, 162, 83, 0.1) !important;
+}

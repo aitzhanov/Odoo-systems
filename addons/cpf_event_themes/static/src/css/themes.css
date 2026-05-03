@@ -1,8 +1,7 @@
 /* =========================================================
-   CPF EVENT THEMES — VERSION 2
-   Two museum-inspired templates:
-   - Louvre-inspired: modern editorial museum look
-   - Hermitage-inspired: classical imperial museum look
+   CPF EVENT THEMES — CLEAN VERSION
+   - Louvre: modern editorial museum look
+   - Hermitage: classical imperial museum look
    ========================================================= */
 
 
@@ -13,6 +12,8 @@
 .cpf-events-listing-page,
 .cpf-event-detail-page {
     min-height: 100vh;
+    box-sizing: border-box;
+    padding-top: 0;
 }
 
 .cpf-events-listing-page *,
@@ -29,75 +30,89 @@
     display: none !important;
 }
 
-.cpf-events-listing-page .o_wevent_events_topbar,
-.cpf-events-listing-page .o_wevent_index_topbar {
-    margin-bottom: 28px !important;
-}
-
-.cpf-events-listing-page .card,
-.cpf-events-listing-page article,
-.cpf-events-listing-page .o_wevent_event_card {
-    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-}
-
-.cpf-events-listing-page .card:hover,
-.cpf-events-listing-page article:hover,
-.cpf-events-listing-page .o_wevent_event_card:hover {
-    transform: translateY(-6px);
-}
-
-.cpf-event-detail-page img,
-.cpf-events-listing-page img {
+.cpf-events-listing-page img,
+.cpf-event-detail-page img {
     max-width: 100%;
+}
+
+/* Hide default Odoo event list when custom layout is injected */
+body:has(.theme-louvre) .o_wevent_events_list,
+.cpf-events-listing-page > .container {
+    display: none !important;
 }
 
 
 /* =========================================================
-   LOUVRE-INSPIRED LISTING PAGE
+   HERO SECTION (shared structure)
    ========================================================= */
 
+.cpf-events-hero {
+    min-height: 360px;
+    display: flex;
+    align-items: flex-end;
+    padding: 70px 0 42px;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.cpf-events-hero__inner  { max-width: 760px; }
+
+.cpf-events-hero__kicker {
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.cpf-events-hero__title {
+    margin: 0 0 10px;
+    line-height: 0.96;
+}
+
+.cpf-events-hero__subtitle {
+    font-size: 22px;
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   CUSTOM EVENTS WRAPPER
+   ========================================================= */
+
+.cpf-custom-events {
+    width: 100%;
+}
+
+
+/* =========================================================
+   LOUVRE THEME
+   ========================================================= */
+
+/* --- Page --- */
 .theme-louvre.cpf-events-listing-page {
-    background:
-        linear-gradient(180deg, #f7f2e8 0%, #f7f2e8 58%, #efe6d8 100%) !important;
+    background: #f7f5f1 !important;
     color: #111 !important;
     font-family: Georgia, "Times New Roman", serif !important;
     padding-bottom: 90px;
 }
 
-/* Big editorial museum header */
-.theme-louvre.cpf-events-listing-page::before {
-    content: "Events";
-    display: block;
-    max-width: 1360px;
-    margin: 0 auto;
-    padding: 88px 32px 18px;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(72px, 8vw, 142px);
-    line-height: 0.92;
-    font-weight: 700;
-    letter-spacing: -0.06em;
-    color: #111;
-    border-bottom: 2px solid #c5a253;
+/* --- Topbar / Filters --- */
+.theme-louvre.cpf-events-listing-page .o_wevent_events_topbar,
+.theme-louvre.cpf-events-listing-page .o_wevent_index_topbar {
+    background: #f1f1f1 !important;
+    border: none !important;
+    padding: 18px !important;
+    margin-bottom: 34px !important;
 }
 
-.theme-louvre.cpf-events-listing-page::after {
-    content: "Museum programme and special events";
-    display: block;
-    max-width: 1360px;
-    margin: 0 auto 44px;
-    padding: 18px 32px 34px;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 24px;
-    color: #5d5142;
-}
-
-/* Top filters/search */
 .theme-louvre.cpf-events-listing-page .dropdown-toggle,
 .theme-louvre.cpf-events-listing-page input,
 .theme-louvre.cpf-events-listing-page select,
 .theme-louvre.cpf-events-listing-page .form-control {
-    background: #fffaf2 !important;
-    border: 1px solid #cfc0a8 !important;
+    background: #fff !important;
+    border: 1px solid #dedede !important;
     border-radius: 0 !important;
     min-height: 52px !important;
     color: #111 !important;
@@ -106,13 +121,12 @@
 }
 
 .theme-louvre.cpf-events-listing-page .btn,
-.theme-louvre.cpf-events-listing-page .btn-primary,
-.theme-louvre.cpf-events-listing-page button {
-    background: #111 !important;
-    border-color: #111 !important;
-    color: #fff !important;
-    border-radius: 0 !important;
-    min-height: 52px !important;
+.theme-louvre.cpf-events-listing-page .btn-primary {
+    background: #fff !important;
+    border: 2px solid #111 !important;
+    border-radius: 999px !important;
+    color: #111 !important;
+    min-height: 48px !important;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-family: Arial, sans-serif !important;
@@ -121,57 +135,61 @@
 }
 
 .theme-louvre.cpf-events-listing-page .btn:hover,
-.theme-louvre.cpf-events-listing-page button:hover {
-    background: #8b1e3f !important;
-    border-color: #8b1e3f !important;
+.theme-louvre.cpf-events-listing-page .btn-primary:hover {
+    background: #111 !important;
+    color: #fff !important;
 }
 
-/* Cards grid look */
+/* --- Odoo default cards (fallback) --- */
 .theme-louvre.cpf-events-listing-page .card,
 .theme-louvre.cpf-events-listing-page article,
 .theme-louvre.cpf-events-listing-page .o_wevent_event_card {
-    background: #fffaf2 !important;
-    border: 1px solid #d6c7af !important;
+    background: #fff !important;
+    color: #111 !important;
+    border: none !important;
+    border-top: 1px solid #d7d2ca !important;
+    border-bottom: 1px solid #d7d2ca !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    overflow: hidden !important;
-    min-height: 190px;
+    padding: 28px 32px !important;
+    min-height: 350px !important;
+    margin-bottom: 22px !important;
     position: relative;
 }
 
-/* Decorative top line if event image is missing */
 .theme-louvre.cpf-events-listing-page .card::before,
 .theme-louvre.cpf-events-listing-page article::before,
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card::before {
-    content: "";
-    display: block;
-    height: 7px;
-    width: 100%;
-    background: linear-gradient(90deg, #111 0%, #111 42%, #8b1e3f 42%, #8b1e3f 72%, #c5a253 72%, #c5a253 100%);
+.theme-louvre.cpf-events-listing-page .o_wevent_event_card::before,
+.theme-louvre.cpf-events-listing-page .card::after,
+.theme-louvre.cpf-events-listing-page article::after,
+.theme-louvre.cpf-events-listing-page .o_wevent_event_card::after {
+    display: none !important;
+    content: none !important;
 }
 
 .theme-louvre.cpf-events-listing-page .card:hover,
 .theme-louvre.cpf-events-listing-page article:hover,
 .theme-louvre.cpf-events-listing-page .o_wevent_event_card:hover {
+    background: #f8f5ef !important;
     border-color: #111 !important;
-    box-shadow: 0 18px 40px rgba(17, 17, 17, 0.10) !important;
 }
 
 .theme-louvre.cpf-events-listing-page .card-body,
 .theme-louvre.cpf-events-listing-page .o_wevent_event_card .card-body {
-    padding: 34px 30px !important;
+    padding: 0 !important;
 }
 
 .theme-louvre.cpf-events-listing-page .card-title,
-.theme-louvre.cpf-events-listing-page h2,
 .theme-louvre.cpf-events-listing-page h3,
-.theme-louvre.cpf-events-listing-page h4 {
+.theme-louvre.cpf-events-listing-page h4,
+.theme-louvre.cpf-events-listing-page .o_wevent_event_card h5,
+.theme-louvre.cpf-events-listing-page .o_wevent_event_card a {
     color: #111 !important;
     font-family: Georgia, "Times New Roman", serif !important;
-    font-size: clamp(30px, 2.6vw, 46px) !important;
-    line-height: 1.02 !important;
+    font-size: 30px !important;
+    line-height: 1.1 !important;
     font-weight: 700 !important;
-    letter-spacing: -0.045em;
+    opacity: 1 !important;
 }
 
 .theme-louvre.cpf-events-listing-page a {
@@ -179,20 +197,19 @@
     text-decoration: none !important;
 }
 
-.theme-louvre.cpf-events-listing-page a:hover {
-    color: #8b1e3f !important;
-}
-
 .theme-louvre.cpf-events-listing-page .text-muted,
-.theme-louvre.cpf-events-listing-page .fa,
-.theme-louvre.cpf-events-listing-page i {
-    color: #6b6255 !important;
+.theme-louvre.cpf-events-listing-page span,
+.theme-louvre.cpf-events-listing-page p,
+.theme-louvre.cpf-events-listing-page i,
+.theme-louvre.cpf-events-listing-page .fa {
+    color: #4d4a45 !important;
+    opacity: 1 !important;
 }
 
 .theme-louvre.cpf-events-listing-page .badge,
 .theme-louvre.cpf-events-listing-page .text-bg-primary,
 .theme-louvre.cpf-events-listing-page .o_wevent_badge {
-    background: #8b1e3f !important;
+    background: #111 !important;
     color: #fff !important;
     border-radius: 0 !important;
     text-transform: uppercase;
@@ -202,14 +219,298 @@
 .theme-louvre.cpf-events-listing-page img,
 .theme-louvre.cpf-events-listing-page .card-img-top {
     border-radius: 0 !important;
-    filter: grayscale(0.15) contrast(1.05) saturate(0.92);
+    max-height: 300px !important;
+    object-fit: cover !important;
+    opacity: 1 !important;
+    filter: contrast(1.05) saturate(0.95) !important;
 }
 
+/* --- Hero --- */
+.theme-louvre.cpf-events-hero {
+    background:
+        linear-gradient(0deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35)),
+        url("../img/louvre-hero.jpg") center / cover no-repeat;
+    color: #fff;
+}
 
-/* =========================================================
-   LOUVRE-INSPIRED DETAIL PAGE
-   ========================================================= */
+.theme-louvre.cpf-events-hero .cpf-events-hero__title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(56px, 7vw, 92px);
+    color: #fff;
+}
 
+.theme-louvre.cpf-events-hero .cpf-events-hero__subtitle { color: #f5f1e8; }
+.theme-louvre.cpf-events-hero .cpf-events-hero__kicker   { color: #fff; }
+
+/* --- Custom Louvre Shell --- */
+.theme-louvre .cpf-louvre-shell {
+    max-width: 1680px;
+    margin: 0 auto;
+    padding: 44px 64px 90px;
+    background: #f6f6f4;
+}
+
+.theme-louvre .cpf-louvre-tabs {
+    display: flex;
+    gap: 42px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid #d9d9d9;
+    margin-bottom: 42px;
+    font-family: Arial, sans-serif;
+    letter-spacing: .08em;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.theme-louvre .cpf-louvre-tab       { color: #7b7b7b; padding-bottom: 18px; }
+.theme-louvre .cpf-louvre-tab--active { color: #111; border-bottom: 5px solid #111; }
+
+.theme-louvre .cpf-louvre-toolbar {
+    display: grid;
+    grid-template-columns: 280px 1fr 120px 120px 100px;
+    background: #ececec;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 56px;
+    min-height: 86px;
+    align-items: center;
+}
+
+.theme-louvre .cpf-louvre-filter,
+.theme-louvre .cpf-louvre-filter-small {
+    padding: 0 28px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #111;
+}
+
+.theme-louvre .cpf-louvre-filter {
+    border-right: 1px solid #d5d5d5;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.theme-louvre .cpf-louvre-chip {
+    justify-self: center;
+    border: 3px solid #0a0a0a;
+    color: #0a0a0a;
+    border-radius: 999px;
+    padding: 12px 22px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    background: #fff;
+}
+
+.theme-louvre .cpf-louvre-month {
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    margin-bottom: 36px;
+    color: #111;
+}
+
+/* --- Louvre Row (custom listing item) --- */
+.cpf-louvre-shell .cpf-louvre-row {
+    display: grid !important;
+    grid-template-columns: 160px 300px 1fr 150px !important;
+    align-items: center !important;
+    column-gap: 28px !important;
+    padding: 20px 0 !important;
+    border-top: 1px solid #d9d9d9 !important;
+    position: relative !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    min-height: 250px !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-row:last-child {
+    border-bottom: 1px solid #d9d9d9 !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-row__date {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    padding-left: 16px !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-row__image {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-row__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cpf-louvre-shell .cpf-louvre-row__content {
+    grid-column: 3 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-row__cta {
+    grid-column: 4 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    padding-right: 16px !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-row__date-line {
+    font-size: 14px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase !important;
+    color: #1a1a1a !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-badge {
+    display: inline-block !important;
+    background: #1a1a1a !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    padding: 10px !important;
+    width: fit-content !important;
+    border-radius: 0 !important;
+    margin-bottom: 6px !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-title {
+    font-size: 17px !important;
+    font-weight: 400 !important;
+    color: #1a1a1a !important;
+    margin: 0 0 6px !important;
+    font-family: Georgia, serif !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-title a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-meta {
+    font-family: Arial, sans-serif;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #111 !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-location {
+    font-size: 12px !important;
+    color: #7a7670 !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-discover {
+    display: inline-flex !important;
+    align-items: center !important;
+    border: 1.5px solid #1a1a1a !important;
+    border-radius: 9999px !important;
+    padding: 9px 20px !important;
+    font-size: 15px !important;
+    color: #1a1a1a !important;
+    text-decoration: none !important;
+    background: transparent !important;
+    white-space: nowrap !important;
+    transition: background 0.2s, color 0.2s !important;
+}
+
+.cpf-louvre-shell .cpf-louvre-discover:hover {
+    background: #1a1a1a !important;
+    color: #fff !important;
+}
+
+/* Stretched link */
+.cpf-louvre-shell .cpf-louvre-row {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Кнопка Discover должна быть выше псевдоэлемента */
+.cpf-louvre-shell .cpf-louvre-row__cta {
+    position: relative;
+    z-index: 2;
+}
+
+.cpf-louvre-shell .cpf-louvre-row--unpublished {
+    opacity: 0.3;
+    filter: grayscale(0.4);
+}
+
+/* Hover на всей строке подсвечивает кнопку Discover */
+.cpf-louvre-shell .cpf-louvre-row:hover .cpf-louvre-discover {
+    background: #1a1a1a !important;
+    color: #fff !important;
+}
+
+/* Анимированная линия снизу названия при hover на строке */
+.cpf-louvre-shell .cpf-louvre-title a {
+    position: relative;
+    display: inline;
+}
+
+.cpf-louvre-shell .cpf-louvre-title a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: #1a1a1a;
+    transition: width 0.25s ease;
+}
+
+/* Срабатывает при наводке на всю строку */
+.cpf-louvre-shell .cpf-louvre-row:hover .cpf-louvre-title a::after {
+    width: 100%;
+}
+
+/* Убираем старое правило с ::after на ссылке */
+.cpf-louvre-shell .cpf-louvre-title a::after {
+    display: none !important;
+}
+
+/* Линия через border-bottom на самом тексте */
+.cpf-louvre-shell .cpf-louvre-title a {
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.25s ease;
+    padding-bottom: 2px;
+}
+
+.cpf-louvre-shell .cpf-louvre-row:hover .cpf-louvre-title a {
+    border-color: #1a1a1a;
+}
+
+/* Обёртка должна скрывать overflow для zoom-эффекта */
+.cpf-louvre-row__image {
+    overflow: hidden;
+}
+
+/* Плавный zoom при наведении на строку */
+.cpf-louvre-shell .cpf-louvre-row__image img {
+    transition: transform 0.4s ease;
+}
+
+.cpf-louvre-shell .cpf-louvre-row:hover .cpf-louvre-row__image img {
+    transform: scale(1.08);
+}
+
+/* --- Louvre Detail Page --- */
 .theme-louvre.cpf-event-detail-page,
 .theme-louvre.o_wevent_event {
     background: #f7f2e8 !important;
@@ -241,6 +542,8 @@
     border-bottom: 3px solid #c5a253;
     display: inline-block;
     padding-bottom: 12px;
+    background: rgba(255, 250, 242, 0.92);
+    padding: 10px 18px;
 }
 
 .theme-louvre.cpf-event-detail-page .btn,
@@ -255,12 +558,6 @@
     letter-spacing: 0.08em;
     font-family: Arial, sans-serif !important;
     font-weight: 700;
-}
-
-.theme-louvre.cpf-event-detail-page .btn:hover,
-.theme-louvre.o_wevent_event .btn:hover {
-    background: #8b1e3f !important;
-    border-color: #8b1e3f !important;
 }
 
 .theme-louvre.cpf-event-detail-page .card,
@@ -279,1086 +576,7 @@
     filter: grayscale(0.1) contrast(1.05) saturate(0.95);
 }
 
-
-/* =========================================================
-   HERMITAGE-INSPIRED LISTING PAGE
-   ========================================================= */
-
-.theme-hermitage.cpf-events-listing-page {
-    background:
-        radial-gradient(circle at top left, rgba(212, 175, 55, 0.22), transparent 26%),
-        linear-gradient(180deg, #103323 0%, #103323 320px, #edf0e4 320px, #edf0e4 100%) !important;
-    color: #10251b !important;
-    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
-    padding-bottom: 90px;
-}
-
-/* Big classical header */
-.theme-hermitage.cpf-events-listing-page::before {
-    content: "Events";
-    display: block;
-    max-width: 1360px;
-    margin: 0 auto;
-    padding: 82px 32px 18px;
-    font-family: "Palatino Linotype", Palatino, Georgia, serif;
-    font-size: clamp(64px, 7vw, 118px);
-    line-height: 0.95;
-    font-weight: 700;
-    letter-spacing: -0.035em;
-    color: #f8f1d9;
-    border-bottom: 2px solid #d4af37;
-}
-
-.theme-hermitage.cpf-events-listing-page::after {
-    content: "Museum events and cultural programme";
-    display: block;
-    max-width: 1360px;
-    margin: 0 auto 44px;
-    padding: 18px 32px 38px;
-    font-family: "Palatino Linotype", Palatino, Georgia, serif;
-    font-size: 23px;
-    color: #e4d2a0;
-}
-
-/* Filters/search */
-.theme-hermitage.cpf-events-listing-page .dropdown-toggle,
-.theme-hermitage.cpf-events-listing-page input,
-.theme-hermitage.cpf-events-listing-page select,
-.theme-hermitage.cpf-events-listing-page .form-control {
-    background: #fbf8ef !important;
-    border: 1px solid #c9a64a !important;
-    border-radius: 2px !important;
-    min-height: 52px !important;
-    color: #10251b !important;
-    font-family: Arial, sans-serif !important;
-    letter-spacing: 0.02em;
-}
-
-.theme-hermitage.cpf-events-listing-page .btn,
-.theme-hermitage.cpf-events-listing-page .btn-primary,
-.theme-hermitage.cpf-events-listing-page button {
-    background: #d4af37 !important;
-    border-color: #d4af37 !important;
-    color: #10251b !important;
-    border-radius: 2px !important;
-    min-height: 52px !important;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-family: Arial, sans-serif !important;
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.theme-hermitage.cpf-events-listing-page .btn:hover,
-.theme-hermitage.cpf-events-listing-page button:hover {
-    background: #103323 !important;
-    border-color: #103323 !important;
-    color: #fff !important;
-}
-
-/* Cards */
-.theme-hermitage.cpf-events-listing-page .card,
-.theme-hermitage.cpf-events-listing-page article,
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card {
-    background:
-        linear-gradient(180deg, #fffaf0 0%, #f5eddc 100%) !important;
-    border: 1px solid #d4af37 !important;
-    border-radius: 4px !important;
-    box-shadow: 0 16px 36px rgba(16, 51, 35, 0.14) !important;
-    overflow: hidden !important;
-    min-height: 205px;
-    position: relative;
-}
-
-/* Decorative museum frame */
-.theme-hermitage.cpf-events-listing-page .card::before,
-.theme-hermitage.cpf-events-listing-page article::before,
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card::before {
-    content: "";
-    position: absolute;
-    inset: 12px;
-    border: 1px solid rgba(212, 175, 55, 0.75);
-    pointer-events: none;
-    z-index: 2;
-}
-
-.theme-hermitage.cpf-events-listing-page .card::after,
-.theme-hermitage.cpf-events-listing-page article::after,
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card::after {
-    content: "";
-    display: block;
-    height: 9px;
-    width: 100%;
-    background: linear-gradient(90deg, #103323, #d4af37, #103323);
-}
-
-.theme-hermitage.cpf-events-listing-page .card:hover,
-.theme-hermitage.cpf-events-listing-page article:hover,
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card:hover {
-    border-color: #103323 !important;
-    box-shadow: 0 22px 48px rgba(16, 51, 35, 0.22) !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .card-body,
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card .card-body {
-    padding: 38px 34px !important;
-    position: relative;
-    z-index: 3;
-}
-
-.theme-hermitage.cpf-events-listing-page .card-title,
-.theme-hermitage.cpf-events-listing-page h2,
-.theme-hermitage.cpf-events-listing-page h3,
-.theme-hermitage.cpf-events-listing-page h4 {
-    color: #103323 !important;
-    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
-    font-size: clamp(30px, 2.5vw, 44px) !important;
-    line-height: 1.05 !important;
-    font-weight: 700 !important;
-}
-
-.theme-hermitage.cpf-events-listing-page a {
-    color: #103323 !important;
-    text-decoration: none !important;
-}
-
-.theme-hermitage.cpf-events-listing-page a:hover {
-    color: #8a6b13 !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .text-muted,
-.theme-hermitage.cpf-events-listing-page .fa,
-.theme-hermitage.cpf-events-listing-page i {
-    color: #456552 !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .badge,
-.theme-hermitage.cpf-events-listing-page .text-bg-primary,
-.theme-hermitage.cpf-events-listing-page .o_wevent_badge {
-    background: #d4af37 !important;
-    color: #10251b !important;
-    border-radius: 2px !important;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 800;
-}
-
-.theme-hermitage.cpf-events-listing-page img,
-.theme-hermitage.cpf-events-listing-page .card-img-top {
-    border-radius: 0 !important;
-    filter: sepia(0.08) contrast(1.05) saturate(0.9);
-}
-
-
-/* =========================================================
-   HERMITAGE-INSPIRED DETAIL PAGE
-   ========================================================= */
-
-.theme-hermitage.cpf-event-detail-page,
-.theme-hermitage.o_wevent_event {
-    background:
-        linear-gradient(180deg, #103323 0%, #103323 230px, #edf0e4 230px, #edf0e4 100%) !important;
-    color: #10251b !important;
-    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
-}
-
-.theme-hermitage.cpf-event-detail-page h1,
-.theme-hermitage.cpf-event-detail-page h2,
-.theme-hermitage.cpf-event-detail-page h3,
-.theme-hermitage.o_wevent_event h1,
-.theme-hermitage.o_wevent_event h2,
-.theme-hermitage.o_wevent_event h3 {
-    color: #103323 !important;
-    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
-}
-
-.theme-hermitage.cpf-event-detail-page .o_wevent_event_name,
-.theme-hermitage.cpf-event-detail-page .o_wevent_event_title,
-.theme-hermitage.cpf-event-detail-page .display-3,
-.theme-hermitage.cpf-event-detail-page .display-4,
-.theme-hermitage.o_wevent_event .o_wevent_event_name,
-.theme-hermitage.o_wevent_event .o_wevent_event_title,
-.theme-hermitage.o_wevent_event .display-3,
-.theme-hermitage.o_wevent_event .display-4 {
-    color: #103323 !important;
-    font-size: clamp(50px, 5.8vw, 88px) !important;
-    border-bottom: 3px solid #d4af37;
-    display: inline-block;
-    padding-bottom: 12px;
-}
-
-.theme-hermitage.cpf-event-detail-page .btn,
-.theme-hermitage.cpf-event-detail-page .btn-primary,
-.theme-hermitage.o_wevent_event .btn,
-.theme-hermitage.o_wevent_event .btn-primary {
-    background: #103323 !important;
-    border-color: #103323 !important;
-    color: #fff !important;
-    border-radius: 2px !important;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-family: Arial, sans-serif !important;
-    font-weight: 800;
-}
-
-.theme-hermitage.cpf-event-detail-page .btn:hover,
-.theme-hermitage.o_wevent_event .btn:hover {
-    background: #d4af37 !important;
-    border-color: #d4af37 !important;
-    color: #10251b !important;
-}
-
-.theme-hermitage.cpf-event-detail-page .card,
-.theme-hermitage.cpf-event-detail-page .border,
-.theme-hermitage.o_wevent_event .card,
-.theme-hermitage.o_wevent_event .border {
-    background: #fbf8ef !important;
-    border: 1px solid #d4af37 !important;
-    border-radius: 4px !important;
-    box-shadow: 0 16px 36px rgba(16, 51, 35, 0.10) !important;
-}
-
-.theme-hermitage.cpf-event-detail-page img,
-.theme-hermitage.o_wevent_event img {
-    border-radius: 2px !important;
-    filter: sepia(0.08) contrast(1.05) saturate(0.9);
-}
-
-
-
-
-/* =========================================================
-   HERO SECTION FOR EVENTS PAGE
-   ========================================================= */
-
-.cpf-events-hero {
-    min-height: 360px;
-    display: flex;
-    align-items: end;
-    padding: 70px 0 42px;
-    margin-bottom: 38px;
-    position: relative;
-    overflow: hidden;
-}
-
-.cpf-events-hero__inner {
-    max-width: 760px;
-}
-
-.cpf-events-hero__kicker {
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 16px;
-    font-weight: 700;
-}
-
-.cpf-events-hero__title {
-    margin: 0 0 10px 0;
-    line-height: 0.96;
-}
-
-.cpf-events-hero__subtitle {
-    font-size: 22px;
-    line-height: 1.3;
-}
-
-/* =========================================================
-   LOUVRE HERO
-   ========================================================= */
-
-.theme-louvre.cpf-events-hero {
-    background:
-        linear-gradient(0deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35)),
-        url("../img/louvre-hero.jpg") center center / cover no-repeat;
-    color: #ffffff;
-}
-
-.theme-louvre.cpf-events-hero .cpf-events-hero__title {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(56px, 7vw, 92px);
-    color: #ffffff;
-}
-
-.theme-louvre.cpf-events-hero .cpf-events-hero__subtitle {
-    color: #f5f1e8;
-}
-
-.theme-louvre.cpf-events-hero .cpf-events-hero__kicker {
-    color: #ffffff;
-}
-
-/* =========================================================
-   HERMITAGE HERO
-   ========================================================= */
-
-.theme-hermitage.cpf-events-hero {
-    background:
-        linear-gradient(0deg, rgba(8,24,32,0.76), rgba(10,31,43,0.82)),
-        url("../img/hermitage-hero.jpg") center center / cover no-repeat;
-    color: #f6eed9;
-    border-bottom: 2px solid #d4af37;
-}
-
-.theme-hermitage.cpf-events-hero .cpf-events-hero__title {
-    font-family: "Palatino Linotype", Palatino, Georgia, serif;
-    font-size: clamp(54px, 6.5vw, 88px);
-    color: #f6eed9;
-}
-
-.theme-hermitage.cpf-events-hero .cpf-events-hero__subtitle {
-    color: #e2d3a7;
-}
-
-.theme-hermitage.cpf-events-hero .cpf-events-hero__kicker {
-    color: #f6eed9;
-}
-
-/* =========================================================
-   LOUVRE PAGE REFINEMENT
-   closer to editorial museum layout
-   ========================================================= */
-
-.theme-louvre.cpf-events-listing-page {
-    background: #f7f5f1 !important;
-}
-
-.theme-louvre.cpf-events-listing-page .o_wevent_events_topbar,
-.theme-louvre.cpf-events-listing-page .o_wevent_index_topbar {
-    background: #f1efeb !important;
-    border: 1px solid #dfd8ce !important;
-    padding: 14px !important;
-    margin-bottom: 34px !important;
-}
-
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card,
-.theme-louvre.cpf-events-listing-page .card,
-.theme-louvre.cpf-events-listing-page article {
-    display: grid !important;
-    grid-template-columns: 260px 1fr 170px;
-    gap: 28px;
-    align-items: center;
-    background: #ffffff !important;
-    border: none !important;
-    border-top: 1px solid #d9d4cd !important;
-    border-bottom: 1px solid #d9d4cd !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 26px !important;
-    margin-bottom: 22px !important;
-}
-
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card img,
-.theme-louvre.cpf-events-listing-page .card img,
-.theme-louvre.cpf-events-listing-page article img {
-    width: 100%;
-    height: 190px;
-    object-fit: cover;
-    border-radius: 0 !important;
-}
-
-.theme-louvre.cpf-events-listing-page .card-body {
-    padding: 0 !important;
-}
-
-.theme-louvre.cpf-events-listing-page h3,
-.theme-louvre.cpf-events-listing-page h4,
-.theme-louvre.cpf-events-listing-page .card-title {
-    font-family: Georgia, "Times New Roman", serif !important;
-    font-size: clamp(28px, 3vw, 44px) !important;
-    line-height: 1.03 !important;
-    color: #111 !important;
-    margin-bottom: 12px !important;
-}
-
-.theme-louvre.cpf-events-listing-page .btn,
-.theme-louvre.cpf-events-listing-page .btn-primary {
-    border-radius: 999px !important;
-    background: #ffffff !important;
-    border: 2px solid #111 !important;
-    color: #111 !important;
-    min-height: 48px !important;
-}
-
-.theme-louvre.cpf-events-listing-page .btn:hover,
-.theme-louvre.cpf-events-listing-page .btn-primary:hover {
-    background: #111 !important;
-    color: #fff !important;
-}
-
-.theme-louvre.cpf-events-listing-page .text-muted,
-.theme-louvre.cpf-events-listing-page i,
-.theme-louvre.cpf-events-listing-page .fa {
-    color: #5a5a5a !important;
-}
-
-/* =========================================================
-   HERMITAGE PAGE REFINEMENT
-   darker, denser, more classical
-   ========================================================= */
-
-.theme-hermitage.cpf-events-listing-page {
-    background: #0e2836 !important;
-    color: #f2e8d4 !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .container {
-    position: relative;
-    z-index: 2;
-}
-
-.theme-hermitage.cpf-events-listing-page .o_wevent_events_topbar,
-.theme-hermitage.cpf-events-listing-page .o_wevent_index_topbar {
-    background: #123243 !important;
-    border: 1px solid #d4af37 !important;
-    padding: 14px !important;
-    margin-bottom: 34px !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card,
-.theme-hermitage.cpf-events-listing-page .card,
-.theme-hermitage.cpf-events-listing-page article {
-    display: grid !important;
-    grid-template-columns: 260px 1fr;
-    gap: 28px;
-    align-items: start;
-    background: #133447 !important;
-    border: 1px solid #d4af37 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 24px !important;
-    margin-bottom: 26px !important;
-    position: relative;
-}
-
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card::before,
-.theme-hermitage.cpf-events-listing-page .card::before,
-.theme-hermitage.cpf-events-listing-page article::before {
-    content: "";
-    position: absolute;
-    inset: 10px;
-    border: 1px solid rgba(212, 175, 55, 0.55);
-    pointer-events: none;
-}
-
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card img,
-.theme-hermitage.cpf-events-listing-page .card img,
-.theme-hermitage.cpf-events-listing-page article img {
-    width: 100%;
-    height: 185px;
-    object-fit: cover;
-    border: 1px solid #d4af37;
-}
-
-.theme-hermitage.cpf-events-listing-page .card-body {
-    padding: 0 !important;
-}
-
-.theme-hermitage.cpf-events-listing-page h3,
-.theme-hermitage.cpf-events-listing-page h4,
-.theme-hermitage.cpf-events-listing-page .card-title {
-    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
-    font-size: clamp(28px, 3vw, 42px) !important;
-    line-height: 1.08 !important;
-    color: #f2e8d4 !important;
-    margin-bottom: 12px !important;
-}
-
-.theme-hermitage.cpf-events-listing-page a {
-    color: #f2e8d4 !important;
-}
-
-.theme-hermitage.cpf-events-listing-page a:hover {
-    color: #d4af37 !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .text-muted,
-.theme-hermitage.cpf-events-listing-page i,
-.theme-hermitage.cpf-events-listing-page .fa {
-    color: #bfcfda !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .btn,
-.theme-hermitage.cpf-events-listing-page .btn-primary {
-    background: transparent !important;
-    border: 1px solid #d4af37 !important;
-    color: #f2e8d4 !important;
-    min-height: 46px !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .btn:hover,
-.theme-hermitage.cpf-events-listing-page .btn-primary:hover {
-    background: #d4af37 !important;
-    color: #10251b !important;
-}
-
-/* =========================================================
-   DETAIL PAGE stronger styling
-   ========================================================= */
-
-.theme-louvre.cpf-event-detail-page .o_wevent_event_name,
-.theme-louvre.cpf-event-detail-page .o_wevent_event_title,
-.theme-louvre.o_wevent_event .o_wevent_event_name,
-.theme-louvre.o_wevent_event .o_wevent_event_title {
-    background: rgba(255, 250, 242, 0.92);
-    padding: 10px 18px;
-}
-
-.theme-hermitage.cpf-event-detail-page .o_wevent_event_name,
-.theme-hermitage.cpf-event-detail-page .o_wevent_event_title,
-.theme-hermitage.o_wevent_event .o_wevent_event_name,
-.theme-hermitage.o_wevent_event .o_wevent_event_title {
-    background: rgba(16, 51, 35, 0.92);
-    color: #f4ead3 !important;
-    padding: 12px 18px;
-}
-
-.theme-hermitage.cpf-event-detail-page .card,
-.theme-hermitage.cpf-event-detail-page .border,
-.theme-hermitage.o_wevent_event .card,
-.theme-hermitage.o_wevent_event .border {
-    background: #fbf8ef !important;
-}
-
-
-
-/* =========================================================
-   FINAL READABILITY + CARD STRUCTURE FIX
-   ========================================================= */
-
-/* Remove old decorative strips that made empty-looking Louvre cards */
-.theme-louvre.cpf-events-listing-page .card::before,
-.theme-louvre.cpf-events-listing-page article::before,
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card::before,
-.theme-louvre.cpf-events-listing-page .card::after,
-.theme-louvre.cpf-events-listing-page article::after,
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card::after {
-    display: none !important;
-    content: none !important;
-}
-
-/* Make Odoo event cards readable again */
-.theme-louvre.cpf-events-listing-page .card,
-.theme-louvre.cpf-events-listing-page article,
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card {
-    display: block !important;
-    background: #ffffff !important;
-    color: #111111 !important;
-    border: none !important;
-    border-top: 1px solid #d7d2ca !important;
-    border-bottom: 1px solid #d7d2ca !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 28px 32px !important;
-    min-height: 150px !important;
-    margin-bottom: 22px !important;
-}
-
-.theme-louvre.cpf-events-listing-page .card:hover,
-.theme-louvre.cpf-events-listing-page article:hover,
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card:hover {
-    background: #f8f5ef !important;
-    border-color: #111111 !important;
-    box-shadow: none !important;
-}
-
-.theme-louvre.cpf-events-listing-page .card-body,
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card .card-body {
-    padding: 0 !important;
-}
-
-.theme-louvre.cpf-events-listing-page .card-title,
-.theme-louvre.cpf-events-listing-page h3,
-.theme-louvre.cpf-events-listing-page h4,
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card h5,
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card a {
-    color: #111111 !important;
-    opacity: 1 !important;
-    font-family: Georgia, "Times New Roman", serif !important;
-    font-size: 30px !important;
-    line-height: 1.1 !important;
-    font-weight: 700 !important;
-}
-
-.theme-louvre.cpf-events-listing-page .text-muted,
-.theme-louvre.cpf-events-listing-page span,
-.theme-louvre.cpf-events-listing-page p,
-.theme-louvre.cpf-events-listing-page i,
-.theme-louvre.cpf-events-listing-page .fa {
-    color: #4d4a45 !important;
-    opacity: 1 !important;
-}
-
-.theme-louvre.cpf-events-listing-page .o_wevent_event_card img,
-.theme-louvre.cpf-events-listing-page .card img,
-.theme-louvre.cpf-events-listing-page article img {
-    max-height: 210px !important;
-    object-fit: cover !important;
-    opacity: 1 !important;
-    filter: contrast(1.05) saturate(0.95) !important;
-}
-
-/* Louvre search/filter closer to original */
-.theme-louvre.cpf-events-listing-page .o_wevent_events_topbar,
-.theme-louvre.cpf-events-listing-page .o_wevent_index_topbar {
-    background: #f1f1f1 !important;
-    border: none !important;
-    padding: 18px !important;
-}
-
-.theme-louvre.cpf-events-listing-page .dropdown-toggle,
-.theme-louvre.cpf-events-listing-page input,
-.theme-louvre.cpf-events-listing-page .form-control {
-    background: #ffffff !important;
-    border: 1px solid #dedede !important;
-    color: #111111 !important;
-}
-
-/* Hermitage: make content readable and remove over-dark overlays */
-.theme-hermitage.cpf-events-listing-page .card,
-.theme-hermitage.cpf-events-listing-page article,
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card {
-    background: #142f3d !important;
-    color: #f6eed9 !important;
-    border: 1px solid #c9a64a !important;
-    opacity: 1 !important;
-    padding: 28px !important;
-    min-height: 180px !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .card::before,
-.theme-hermitage.cpf-events-listing-page article::before,
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card::before {
-    inset: 12px !important;
-    border: 1px solid rgba(212, 175, 55, 0.55) !important;
-    background: transparent !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .card-body,
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card .card-body {
-    padding: 0 !important;
-    position: relative !important;
-    z-index: 5 !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .card-title,
-.theme-hermitage.cpf-events-listing-page h3,
-.theme-hermitage.cpf-events-listing-page h4,
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card h5,
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card a {
-    color: #f6eed9 !important;
-    opacity: 1 !important;
-    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
-    font-size: 30px !important;
-    line-height: 1.12 !important;
-    font-weight: 700 !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .text-muted,
-.theme-hermitage.cpf-events-listing-page span,
-.theme-hermitage.cpf-events-listing-page p,
-.theme-hermitage.cpf-events-listing-page i,
-.theme-hermitage.cpf-events-listing-page .fa {
-    color: #d9cfae !important;
-    opacity: 1 !important;
-}
-
-.theme-hermitage.cpf-events-listing-page .o_wevent_event_card img,
-.theme-hermitage.cpf-events-listing-page .card img,
-.theme-hermitage.cpf-events-listing-page article img {
-    opacity: 1 !important;
-    filter: contrast(1.05) saturate(0.95) !important;
-}
-
-/* Better spacing under hero */
-.cpf-events-hero {
-    margin-bottom: 0 !important;
-}
-
-.theme-louvre.cpf-events-listing-page,
-.theme-hermitage.cpf-events-listing-page {
-    padding-top: 0 !important;
-}
-
-
-/* =========================================================
-   CUSTOM PROFESSIONAL LISTINGS
-   ========================================================= */
-
-.cpf-custom-events {
-    width: 100%;
-}
-
-/* ======================================
-   LOUVRE CUSTOM LAYOUT
-   ====================================== */
-
-.theme-louvre .cpf-louvre-shell {
-    max-width: 1680px;
-    margin: 0 auto;
-    padding: 44px 64px 90px;
-    background: #f6f6f4;
-}
-
-.theme-louvre .cpf-louvre-tabs {
-    display: flex;
-    gap: 42px;
-    padding-bottom: 26px;
-    border-bottom: 1px solid #d9d9d9;
-    margin-bottom: 42px;
-    font-family: Arial, sans-serif;
-    letter-spacing: .08em;
-    font-size: 15px;
-    font-weight: 700;
-}
-
-.theme-louvre .cpf-louvre-tab {
-    color: #7b7b7b;
-    padding-bottom: 18px;
-}
-
-.theme-louvre .cpf-louvre-tab--active {
-    color: #111;
-    border-bottom: 5px solid #111;
-}
-
-.theme-louvre .cpf-louvre-toolbar {
-    display: grid;
-    grid-template-columns: 280px 1fr 120px 120px 100px;
-    gap: 0;
-    background: #ececec;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 56px;
-    min-height: 86px;
-    align-items: center;
-}
-
-.theme-louvre .cpf-louvre-filter,
-.theme-louvre .cpf-louvre-filter-small {
-    padding: 0 28px;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    color: #111;
-}
-
-.theme-louvre .cpf-louvre-filter {
-    border-right: 1px solid #d5d5d5;
-    font-weight: 700;
-    letter-spacing: .08em;
-}
-
-.theme-louvre .cpf-louvre-chip {
-    justify-self: center;
-    border: 3px solid #3f217d;
-    color: #3f217d;
-    border-radius: 999px;
-    padding: 12px 22px;
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    background: #fff;
-}
-
-.theme-louvre .cpf-louvre-month {
-    font-family: Arial, sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: .12em;
-    margin-bottom: 36px;
-    color: #111;
-}
-
-.theme-louvre .cpf-louvre-row {
-    display: grid;
-    grid-template-columns: 280px 280px 1fr 180px;
-    gap: 38px;
-    align-items: center;
-    padding: 34px 0;
-    border-top: 1px solid #d9d9d9;
-}
-
-.theme-louvre .cpf-louvre-row:last-child {
-    border-bottom: 1px solid #d9d9d9;
-}
-
-.theme-louvre .cpf-louvre-row__date {
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: .08em;
-    line-height: 1.35;
-    color: #111;
-    text-transform: uppercase;
-}
-
-.theme-louvre .cpf-louvre-row__image img {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    display: block;
-}
-
-.theme-louvre .cpf-louvre-badge {
-    display: inline-block;
-    background: #111;
-    color: #fff;
-    padding: 10px 16px;
-    border-radius: 3px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 18px;
-}
-
-.theme-louvre .cpf-louvre-title {
-    margin: 0 0 16px;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(34px, 3.2vw, 58px);
-    line-height: 1.05;
-    font-weight: 500;
-}
-
-.theme-louvre .cpf-louvre-title a {
-    color: #111 !important;
-    text-decoration: none !important;
-}
-
-.theme-louvre .cpf-louvre-meta {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #111;
-    margin-bottom: 14px;
-}
-
-.theme-louvre .cpf-louvre-location {
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    color: #555;
-}
-
-.theme-louvre .cpf-louvre-row__cta {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.theme-louvre .cpf-louvre-discover {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 150px;
-    height: 56px;
-    padding: 0 26px;
-    border: 3px solid #111;
-    border-radius: 999px;
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: #111 !important;
-    text-decoration: none !important;
-    background: #fff;
-}
-
-.theme-louvre .cpf-louvre-discover:hover {
-    background: #111;
-    color: #fff !important;
-}
-
-/* ======================================
-   HERMITAGE CUSTOM LAYOUT
-   ====================================== */
-
-.theme-hermitage .cpf-hermitage-feature {
-    position: relative;
-    height: 760px;
-    overflow: hidden;
-    background: #111;
-}
-
-.theme-hermitage .cpf-hermitage-feature__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.theme-hermitage .cpf-hermitage-feature__overlay {
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.25) 100%);
-}
-
-.theme-hermitage .cpf-hermitage-feature__content {
-    position: absolute;
-    left: 36px;
-    right: 36px;
-    bottom: 48px;
-    z-index: 3;
-    color: #ece5d8;
-}
-
-.theme-hermitage .cpf-hermitage-feature__place,
-.theme-hermitage .cpf-hermitage-feature__date {
-    display: inline-block;
-    background: rgba(20, 20, 20, 0.55);
-    padding: 10px 16px;
-    margin-bottom: 12px;
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-}
-
-.theme-hermitage .cpf-hermitage-feature__title {
-    margin: 0;
-    max-width: 1500px;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(62px, 6vw, 108px);
-    line-height: .98;
-    font-weight: 400;
-    background: rgba(20, 20, 20, 0.42);
-    padding: 14px 22px 18px;
-}
-
-.theme-hermitage .cpf-hermitage-feature__title a {
-    color: #ece5d8 !important;
-    text-decoration: none !important;
-}
-
-.theme-hermitage .cpf-hermitage-shell {
-    background: #0f2e41;
-    padding: 28px 18px 70px;
-}
-
-.theme-hermitage .cpf-hermitage-heading {
-    font-family: Arial, sans-serif;
-    font-size: 66px;
-    line-height: 1.02;
-    font-weight: 300;
-    color: #f0eadf;
-    margin: 0 0 24px;
-}
-
-.theme-hermitage .cpf-hermitage-subheading {
-    font-family: Arial, sans-serif;
-    font-size: 32px;
-    font-weight: 300;
-    color: #f0eadf;
-    margin: 0 0 28px;
-}
-
-.theme-hermitage .cpf-hermitage-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 34px;
-}
-
-.theme-hermitage .cpf-hermitage-action {
-    display: inline-block;
-    padding: 14px 18px;
-    border: 1px solid #d9d2c4;
-    color: #f0eadf;
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-}
-
-.theme-hermitage .cpf-hermitage-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px 36px;
-}
-
-.theme-hermitage .cpf-hermitage-card {
-    display: grid;
-    grid-template-columns: 290px 1fr;
-    gap: 28px;
-    align-items: start;
-}
-
-.theme-hermitage .cpf-hermitage-card__img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
-    border: 3px solid rgba(230, 224, 210, 0.8);
-}
-
-.theme-hermitage .cpf-hermitage-card__date {
-    color: #7fb0cf;
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.theme-hermitage .cpf-hermitage-card__title {
-    margin: 0 0 14px;
-    font-family: Arial, sans-serif;
-    font-size: 28px;
-    line-height: 1.18;
-    font-weight: 400;
-}
-
-.theme-hermitage .cpf-hermitage-card__title a {
-    color: #f1ebdf !important;
-    text-decoration: none !important;
-}
-
-.theme-hermitage .cpf-hermitage-card__location {
-    color: #6ba0c5;
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-    line-height: 1.35;
-    margin-bottom: 20px;
-}
-
-.theme-hermitage .cpf-hermitage-card__more {
-    color: #f1ebdf !important;
-    text-decoration: none !important;
-    font-family: Arial, sans-serif;
-    font-size: 18px;
-    border-bottom: 1px dotted rgba(241, 235, 223, 0.6);
-    padding-bottom: 2px;
-}
-
-/* ======================================
-   RESPONSIVE
-   ====================================== */
-
-@media (max-width: 1200px) {
-    .theme-louvre .cpf-louvre-row {
-        grid-template-columns: 1fr;
-    }
-
-    .theme-louvre .cpf-louvre-toolbar {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        padding: 18px;
-        min-height: auto;
-    }
-
-    .theme-hermitage .cpf-hermitage-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .theme-hermitage .cpf-hermitage-card {
-        grid-template-columns: 1fr;
-    }
-
-    .theme-hermitage .cpf-hermitage-feature {
-        height: 520px;
-    }
-}
-
-
-/* =========================================================
-   CUSTOM DETAIL PAGES
-   ========================================================= */
-
-/* =========================
-   LOUVRE DETAIL
-   ========================= */
-
+/* --- Louvre Custom Detail Component --- */
 .theme-louvre .cpf-louvre-detail {
     background: #f7f7f5;
     color: #111;
@@ -1461,9 +679,7 @@
     color: #202020;
 }
 
-.theme-louvre .cpf-louvre-detail__description p {
-    margin-bottom: 24px;
-}
+.theme-louvre .cpf-louvre-detail__description p { margin-bottom: 24px; }
 
 .theme-louvre .cpf-louvre-detail__info-card {
     background: #fff;
@@ -1479,9 +695,7 @@
     border-bottom: 1px solid #ececec;
 }
 
-.theme-louvre .cpf-louvre-detail__info-row:last-child {
-    border-bottom: none;
-}
+.theme-louvre .cpf-louvre-detail__info-row:last-child { border-bottom: none; }
 
 .theme-louvre .cpf-louvre-detail__info-label {
     font-family: Arial, sans-serif;
@@ -1519,9 +733,7 @@
     color: #fff !important;
 }
 
-.theme-louvre .cpf-louvre-detail__cta-row {
-    margin-top: 34px;
-}
+.theme-louvre .cpf-louvre-detail__cta-row { margin-top: 34px; }
 
 .theme-louvre .cpf-louvre-detail__register {
     display: inline-block;
@@ -1534,10 +746,423 @@
     border-radius: 999px;
 }
 
-/* =========================
-   HERMITAGE DETAIL
-   ========================= */
+/* --- Louvre Header & Footer --- */
+body:has(.theme-louvre) #wrapwrap #top.o_header_standard,
+body:has(.theme-louvre) #wrapwrap #top.o_header_fixed,
+body:has(.theme-louvre) #wrapwrap header,
+body:has(.theme-louvre) #wrapwrap nav.navbar {
+    background-color: #0a0a0a !important;
+}
 
+body:has(.theme-louvre) #wrapwrap #top *,
+body:has(.theme-louvre) #wrapwrap nav.navbar * {
+    color: #e8e0d0 !important;
+}
+
+body:has(.theme-louvre) #wrapwrap #top .btn-primary,
+body:has(.theme-louvre) #wrapwrap nav .btn-primary {
+    background: #c5a253 !important;
+    border-color: #c5a253 !important;
+    color: #0a0a0a !important;
+}
+
+body:has(.theme-louvre) #wrapwrap #top .nav-link:hover,
+body:has(.theme-louvre) #wrapwrap #top_menu a:hover {
+    color: #c5a253 !important;
+}
+
+body:has(.theme-louvre) .o_footer {
+    background-color: #0a0a0a !important;
+}
+
+body:has(.theme-louvre) .o_footer a,
+body:has(.theme-louvre) .o_footer p,
+body:has(.theme-louvre) .o_footer i,
+body:has(.theme-louvre) .o_footer span {
+    color: #e8e0d0 !important;
+}
+
+body:has(.theme-louvre) .o_footer h5 { color: #fff !important; }
+body:has(.theme-louvre) .o_footer .rounded-circle::before { color: #000 !important; }
+
+
+/* =========================================================
+   HERMITAGE THEME
+   ========================================================= */
+
+/* --- Page --- */
+.theme-hermitage.cpf-events-listing-page {
+    background: #0e2836 !important;
+    color: #f2e8d4 !important;
+    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
+    padding-bottom: 90px;
+}
+
+.theme-hermitage.cpf-events-listing-page .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* --- Topbar / Filters --- */
+.theme-hermitage.cpf-events-listing-page .o_wevent_events_topbar,
+.theme-hermitage.cpf-events-listing-page .o_wevent_index_topbar {
+    background: #123243 !important;
+
+    padding: 14px !important;
+    margin-bottom: 34px !important;
+}
+
+.theme-hermitage.cpf-events-listing-page .dropdown-toggle,
+.theme-hermitage.cpf-events-listing-page input,
+.theme-hermitage.cpf-events-listing-page select,
+.theme-hermitage.cpf-events-listing-page .form-control {
+    background: #fbf8ef !important;
+    border: 1px solid #c9a64a !important;
+    border-radius: 2px !important;
+    min-height: 52px !important;
+    color: #10251b !important;
+    font-family: Arial, sans-serif !important;
+    letter-spacing: 0.02em;
+}
+
+body:has(.theme-hermitage) .o_wevent_events_list,
+.cpf-events-listing-page > .container {
+    display: none !important;
+}
+
+.theme-hermitage.cpf-events-listing-page .btn,
+.theme-hermitage.cpf-events-listing-page .btn-primary {
+    background: transparent !important;
+    border: 1px solid #d4af37 !important;
+    color: #f2e8d4 !important;
+    border-radius: 2px !important;
+    min-height: 46px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: Arial, sans-serif !important;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.theme-hermitage.cpf-events-listing-page .btn:hover,
+.theme-hermitage.cpf-events-listing-page .btn-primary:hover {
+    background: #d4af37 !important;
+    color: #10251b !important;
+}
+
+/* --- Odoo default cards (fallback) --- */
+.theme-hermitage.cpf-events-listing-page .card,
+.theme-hermitage.cpf-events-listing-page article,
+.theme-hermitage.cpf-events-listing-page .o_wevent_event_card {
+    color: #f6eed9 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 28px !important;
+    min-height: 180px !important;
+    margin-bottom: 26px !important;
+    position: relative;
+    opacity: 1 !important;
+}
+
+.theme-hermitage.cpf-events-listing-page .card::before,
+.theme-hermitage.cpf-events-listing-page article::before,
+.theme-hermitage.cpf-events-listing-page .o_wevent_event_card::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    pointer-events: none;
+    background: transparent;
+}
+
+.theme-hermitage.cpf-events-listing-page .card:hover,
+.theme-hermitage.cpf-events-listing-page article:hover,
+.theme-hermitage.cpf-events-listing-page .o_wevent_event_card:hover {
+    border-color: #d4af37 !important;
+}
+
+.theme-hermitage.cpf-events-listing-page .card-body,
+.theme-hermitage.cpf-events-listing-page .o_wevent_event_card .card-body {
+    padding: 0 !important;
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+.theme-hermitage.cpf-events-listing-page .card-title,
+.theme-hermitage.cpf-events-listing-page h3,
+.theme-hermitage.cpf-events-listing-page h4,
+.theme-hermitage.cpf-events-listing-page .o_wevent_event_card h5,
+.theme-hermitage.cpf-events-listing-page .o_wevent_event_card a {
+    color: #f6eed9 !important;
+    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
+    font-size: 30px !important;
+    line-height: 1.12 !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+}
+
+.theme-hermitage.cpf-events-listing-page a        { color: #f2e8d4 !important; text-decoration: none !important; }
+.theme-hermitage.cpf-events-listing-page a:hover   { color: #d4af37 !important; }
+
+.theme-hermitage.cpf-events-listing-page .text-muted,
+.theme-hermitage.cpf-events-listing-page span,
+.theme-hermitage.cpf-events-listing-page p,
+.theme-hermitage.cpf-events-listing-page i,
+.theme-hermitage.cpf-events-listing-page .fa {
+    color: #d9cfae !important;
+    opacity: 1 !important;
+}
+
+.theme-hermitage.cpf-events-listing-page .badge,
+.theme-hermitage.cpf-events-listing-page .text-bg-primary,
+.theme-hermitage.cpf-events-listing-page .o_wevent_badge {
+    background: #d4af37 !important;
+    color: #10251b !important;
+    border-radius: 2px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 800;
+}
+
+.theme-hermitage.cpf-events-listing-page img,
+.theme-hermitage.cpf-events-listing-page .card-img-top {
+    border-radius: 0 !important;
+    opacity: 1 !important;
+    filter: contrast(1.05) saturate(0.95) !important;
+}
+
+/* --- Hero --- */
+.theme-hermitage.cpf-events-hero {
+    display: none;
+}
+
+/* --- Custom Hermitage Shell --- */
+.theme-hermitage .cpf-hermitage-feature {
+    position: relative;
+    height: 530px;
+    overflow: hidden;
+    background: #111;
+}
+
+.theme-hermitage .cpf-hermitage-feature__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.theme-hermitage .cpf-hermitage-feature__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.25));
+}
+
+.theme-hermitage .cpf-hermitage-feature__content {
+    position: absolute;
+    left: 36px;
+    right: 36px;
+    bottom: 48px;
+    z-index: 3;
+    color: #ece5d8;
+}
+
+.theme-hermitage .cpf-hermitage-feature__place,
+.theme-hermitage .cpf-hermitage-feature__date {
+    display: inline-block;
+    background: rgba(20, 20, 20, 0.55);
+    padding: 10px 16px;
+    margin-bottom: 12px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}
+
+.theme-hermitage .cpf-hermitage-feature__title {
+    margin: 0;
+    max-width: 1500px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(62px, 6vw, 108px);
+    line-height: .98;
+    font-weight: 400;
+    background: rgba(20, 20, 20, 0.42);
+    padding: 14px 22px 18px;
+}
+
+.theme-hermitage .cpf-hermitage-feature__title a {
+    color: #ece5d8 !important;
+    text-decoration: none !important;
+}
+
+.theme-hermitage .cpf-hermitage-shell {
+    background: #0f2e41;
+    padding: 28px 18px 70px;
+}
+
+.theme-hermitage .cpf-hermitage-heading {
+    font-family: Arial, sans-serif;
+    font-size: 66px;
+    line-height: 1.02;
+    font-weight: 300;
+    color: #f0eadf;
+    margin: 0 0 24px 30px;
+}
+
+.theme-hermitage .cpf-hermitage-subheading {
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: #f0eadf;
+    margin: 0 0 28px 30px;
+}
+
+.theme-hermitage .cpf-hermitage-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 34px;
+    margin-left: 30px;
+}
+
+.theme-hermitage .cpf-hermitage-action {
+    display: inline-block;
+    padding: 14px 18px;
+    border: 1px solid #d9d2c4;
+    color: #f0eadf;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}
+
+.theme-hermitage .cpf-hermitage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 36px;
+}
+
+.theme-hermitage .cpf-hermitage-card {
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+.theme-hermitage .cpf-hermitage-card__img {
+    width: 100%;
+    height: 220px;
+    border: 2px solid #d9d2c4;
+    object-fit: cover;
+    display: block;
+}
+
+.theme-hermitage .cpf-hermitage-card__date {
+    color: #7fb0cf;
+    font-family: Arial, sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.theme-hermitage .cpf-hermitage-card__title {
+    margin: 0 0 14px;
+    font-family: Arial, sans-serif;
+    font-size: 2rem;
+    line-height: 1.18;
+    font-weight: 400;
+}
+
+.theme-hermitage .cpf-hermitage-card__title a {
+    color: #f1ebdf !important;
+    font-size: 2rem;
+    text-decoration: none !important;
+}
+
+.theme-hermitage .cpf-hermitage-card__location {
+    color: #6ba0c5;
+    font-family: Arial, sans-serif;
+    font-size: 1.4rem;
+    line-height: 1.35;
+    margin-bottom: 20px;
+}
+
+.theme-hermitage .cpf-hermitage-card__description {
+    color: #f1ebdf !important;
+    text-decoration: none !important;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.theme-hermitage .cpf-hermitage-card__description h5{
+    display: none;
+}
+
+/* --- Hermitage Detail Page --- */
+.theme-hermitage.cpf-event-detail-page,
+.theme-hermitage.o_wevent_event {
+    background: linear-gradient(180deg, #103323 0%, #103323 230px, #edf0e4 230px, #edf0e4 100%) !important;
+    color: #10251b !important;
+    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
+}
+
+.theme-hermitage.cpf-event-detail-page h1,
+.theme-hermitage.cpf-event-detail-page h2,
+.theme-hermitage.cpf-event-detail-page h3,
+.theme-hermitage.o_wevent_event h1,
+.theme-hermitage.o_wevent_event h2,
+.theme-hermitage.o_wevent_event h3 {
+    color: #103323 !important;
+    font-family: "Palatino Linotype", Palatino, Georgia, serif !important;
+}
+
+.theme-hermitage.cpf-event-detail-page .o_wevent_event_name,
+.theme-hermitage.cpf-event-detail-page .o_wevent_event_title,
+.theme-hermitage.cpf-event-detail-page .display-3,
+.theme-hermitage.cpf-event-detail-page .display-4,
+.theme-hermitage.o_wevent_event .o_wevent_event_name,
+.theme-hermitage.o_wevent_event .o_wevent_event_title,
+.theme-hermitage.o_wevent_event .display-3,
+.theme-hermitage.o_wevent_event .display-4 {
+    color: #f4ead3 !important;
+    font-size: clamp(50px, 5.8vw, 88px) !important;
+    border-bottom: 3px solid #d4af37;
+    display: inline-block;
+    padding: 12px 18px;
+    background: rgba(16, 51, 35, 0.92);
+}
+
+.theme-hermitage.cpf-event-detail-page .btn,
+.theme-hermitage.cpf-event-detail-page .btn-primary,
+.theme-hermitage.o_wevent_event .btn,
+.theme-hermitage.o_wevent_event .btn-primary {
+    background: #103323 !important;
+    border-color: #103323 !important;
+    color: #fff !important;
+    border-radius: 2px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: Arial, sans-serif !important;
+    font-weight: 800;
+}
+
+.theme-hermitage.cpf-event-detail-page .btn:hover,
+.theme-hermitage.o_wevent_event .btn:hover {
+    background: #d4af37 !important;
+    border-color: #d4af37 !important;
+    color: #10251b !important;
+}
+
+.theme-hermitage.cpf-event-detail-page .card,
+.theme-hermitage.cpf-event-detail-page .border,
+.theme-hermitage.o_wevent_event .card,
+.theme-hermitage.o_wevent_event .border {
+    background: #fbf8ef !important;
+    border: 1px solid #d4af37 !important;
+    border-radius: 4px !important;
+    box-shadow: 0 16px 36px rgba(16, 51, 35, 0.10) !important;
+}
+
+.theme-hermitage.cpf-event-detail-page img,
+.theme-hermitage.o_wevent_event img {
+    border-radius: 2px !important;
+    filter: sepia(0.08) contrast(1.05) saturate(0.9);
+}
+
+/* --- Hermitage Custom Detail Component --- */
 .theme-hermitage .cpf-hermitage-detail {
     background: #f4f4f2;
     color: #111;
@@ -1613,13 +1238,9 @@
     color: #111;
 }
 
-.theme-hermitage .cpf-hermitage-detail__main p {
-    margin-bottom: 24px;
-}
+.theme-hermitage .cpf-hermitage-detail__main p { margin-bottom: 24px; }
 
-.theme-hermitage .cpf-hermitage-detail__gallery {
-    margin-top: 26px;
-}
+.theme-hermitage .cpf-hermitage-detail__gallery { margin-top: 26px; }
 
 .theme-hermitage .cpf-hermitage-detail__gallery img {
     width: 100%;
@@ -1664,41 +1285,986 @@
     padding-bottom: 2px;
 }
 
-/* =========================
+body:has(.theme-hermitage) #wrapwrap #top.o_header_standard,
+body:has(.theme-hermitage) #wrapwrap #top.o_header_fixed,
+body:has(.theme-hermitage) #wrapwrap header,
+body:has(.theme-hermitage) #wrapwrap nav.navbar {
+    background-color: #0a0a0a !important;
+}
+
+body:has(.theme-hermitage) #wrapwrap #top *,
+body:has(.theme-hermitage) #wrapwrap nav.navbar * {
+    color: #d9d2c4 !important;
+}
+
+body:has(.theme-hermitage) #wrapwrap #top .btn-primary,
+body:has(.theme-hermitage) #wrapwrap nav .btn-primary {
+    background: #87928f !important;
+    border-color: #87928f !important;
+    color: #0a0a0a !important;
+}
+
+body:has(.theme-hermitage) #wrapwrap #top .nav-link:hover,
+body:has(.theme-hermitage) #wrapwrap #top_menu a:hover {
+    color: #d9d2c4 !important;
+}
+
+body:has(.theme-hermitage) .o_footer {
+    background-color: #0a0a0a !important;
+}
+
+body:has(.theme-hermitage) .o_footer a,
+body:has(.theme-hermitage) .o_footer p,
+body:has(.theme-hermitage) .o_footer i,
+body:has(.theme-hermitage) .o_footer span {
+    color: #e8e0d0 !important;
+}
+
+body:has(.theme-hermitage) .o_footer h5 { color: #fff !important; }
+body:has(.theme-hermitage) .o_footer .rounded-circle::before { color: #000 !important; }
+/* =========================================================
    RESPONSIVE
-   ========================= */
+   ========================================================= */
 
 @media (max-width: 1200px) {
-    .theme-louvre .cpf-louvre-detail__body,
-    .theme-hermitage .cpf-hermitage-detail__grid {
+    .theme-louvre .cpf-louvre-toolbar {
         grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 18px;
+        min-height: auto;
+    }
+
+    .theme-louvre .cpf-louvre-row,
+    .cpf-louvre-shell .cpf-louvre-row {
+        grid-template-columns: 1fr !important;
     }
 
     .theme-louvre .cpf-louvre-detail__body {
+        grid-template-columns: 1fr;
         padding: 50px 24px;
         gap: 40px;
     }
 
-    .theme-hermitage .cpf-hermitage-detail__content {
-        padding: 36px 18px 60px;
-    }
+    .theme-louvre .cpf-louvre-detail__hero { height: 420px; }
 
-    .theme-hermitage .cpf-hermitage-detail__hero {
-        height: 300px;
-    }
+    .theme-hermitage .cpf-hermitage-grid    { grid-template-columns: 1fr; }
+    .theme-hermitage .cpf-hermitage-card    { grid-template-columns: 1fr; }
+    .theme-hermitage .cpf-hermitage-feature { height: 520px; }
 
-    .theme-louvre .cpf-louvre-detail__hero {
-        height: 420px;
-    }
+    .theme-hermitage .cpf-hermitage-detail__grid { grid-template-columns: 1fr; }
+    .theme-hermitage .cpf-hermitage-detail__content { padding: 36px 18px 60px; }
+    .theme-hermitage .cpf-hermitage-detail__hero    { height: 300px; }
+}
+
+/* =========================================================
+   Yeltsin THEME
+   ========================================================= */
+
+
+
+.cpf-theme-yeltsin {
+    background: #f6f6f6;
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.cpf-theme-yeltsin a {
+    color: #2f66ff;
+    text-decoration: none;
+}
+
+.cpf-theme-yeltsin .yc-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* HERO */
+.cpf-theme-yeltsin .yc-hero {
+    position: relative;
+    min-height: 620px;
+    background: #ddd url('/cpf_event_themes/static/src/img/yeltsin-hero.jpg') center center / cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+}
+
+.cpf-theme-yeltsin .yc-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0.10));
+}
+
+.cpf-theme-yeltsin .yc-hero-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 0 42px 0;
+}
+
+.cpf-theme-yeltsin .yc-hero-title {
+    max-width: 700px;
+    font-size: 78px;
+    line-height: 0.95;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 26px 0;
+}
+
+.cpf-theme-yeltsin .yc-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 38px;
+    border-radius: 999px;
+    background: #2f66ff;
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+}
+
+/* TOP TABS UNDER HERO */
+.cpf-theme-yeltsin .yc-top-tabs-wrap {
+    background: #fff;
+    border-bottom: 1px solid #ececec;
+}
+
+.cpf-theme-yeltsin .yc-top-tabs {
+    display: flex;
+    gap: 44px;
+    align-items: center;
+    min-height: 92px;
+    overflow-x: auto;
+}
+
+.cpf-theme-yeltsin .yc-top-tab {
+    position: relative;
+    color: #2f66ff;
+    font-weight: 700;
+    font-size: 20px;
+    white-space: nowrap;
+    padding: 0 0 14px 0;
+}
+
+.cpf-theme-yeltsin .yc-top-tab.active {
+    color: #111;
+}
+
+.cpf-theme-yeltsin .yc-top-tab.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 4px;
+    background: #d9d9d9;
+    border-radius: 2px;
+}
+
+/* CATEGORY PILLS */
+.cpf-theme-yeltsin .yc-pills-wrap {
+    background: #f3f4f7;
+    padding: 28px 0 22px;
+}
+
+.cpf-theme-yeltsin .yc-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.cpf-theme-yeltsin .yc-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border-radius: 999px;
+    padding: 16px 24px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #2f66ff;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.04);
+}
+
+.cpf-theme-yeltsin .yc-pill.active {
+    color: #111;
+}
+
+/* EVENTS LIST */
+.cpf-theme-yeltsin .yc-list {
+    background: #f6f6f6;
+    padding: 56px 0 90px;
+}
+
+.cpf-theme-yeltsin .yc-event-row {
+    display: grid;
+    grid-template-columns: 290px 1fr 230px;
+    gap: 42px;
+    padding: 42px 0;
+    border-bottom: 1px solid #e6e6e6;
+    align-items: start;
+}
+
+.cpf-theme-yeltsin .yc-event-image-wrap {
+    width: 100%;
+}
+
+.cpf-theme-yeltsin .yc-event-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background: #ddd;
+}
+
+.cpf-theme-yeltsin .yc-event-tag {
+    color: #2f66ff;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: .02em;
+}
+
+.cpf-theme-yeltsin .yc-event-title {
+    color: #111;
+    font-size: 34px;
+    line-height: 1.08;
+    font-weight: 800;
+    margin: 0 0 18px 0;
+}
+
+.cpf-theme-yeltsin .yc-event-desc {
+    color: #111;
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 760px;
+}
+
+.cpf-theme-yeltsin .yc-event-meta {
+    color: #111;
+    font-size: 18px;
+    line-height: 1.55;
+}
+
+.cpf-theme-yeltsin .yc-event-meta .meta-big {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.cpf-theme-yeltsin .yc-event-meta .meta-small {
+    display: block;
+    margin-top: 6px;
 }
 
 
-/* Hide default Odoo event listing when custom listing is injected */
-.cpf-events-listing-page > .container {
+/* =========================
+   YELTSIN DETAIL PAGE
+   ========================= */
+
+.cpf-theme-yeltsin.yc-detail-page {
+    background: #eef0f1;
+    padding: 38px 0 0;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-container {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-top {
+    display: grid;
+    grid-template-columns: 520px 1fr;
+    gap: 90px;
+    align-items: start;
+    padding-top: 40px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-visual {
+    position: relative;
+    min-height: 520px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-datebox {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 170px;
+    background: #2d6af3;
+    color: #fff;
+    text-align: center;
+    padding: 26px 18px;
+    z-index: 3;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-datebox__days {
+    font-size: 58px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -2px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-datebox__dash {
+    margin: 0 6px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-datebox__months {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 12px;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-image-wrap {
+    margin-left: 48px;
+    margin-top: 40px;
+    width: 460px;
+    background: #f3f3f3;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-main {
+    padding-top: 78px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-labels {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 34px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-city {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 136px;
+    padding: 8px 18px;
+    background: #2d6af3;
+    color: #fff;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-type {
+    color: #2d6af3;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-title {
+    margin: 0 0 26px;
+    font-size: 68px;
+    line-height: 1.02;
+    font-weight: 800;
+    color: #111;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-admission {
+    margin-bottom: 52px;
+    font-size: 28px;
+    line-height: 1.3;
+    font-style: italic;
+    color: #222;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    gap: 34px 70px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-meta-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-icon {
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
+    border-radius: 50%;
+    background: #f8f8f8;
+    color: #2d6af3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-meta-strong {
+    font-size: 20px;
+    line-height: 1.45;
+    font-weight: 700;
+    color: #111;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-meta-sub {
+    font-size: 17px;
+    line-height: 1.5;
+    color: #222;
+    margin-top: 4px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-body {
+    padding: 96px 0 110px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-body-inner {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-richtext,
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-richtext p {
+    font-size: 26px;
+    line-height: 1.7;
+    color: #111;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-richtext p {
+    margin: 0 0 34px;
+}
+
+.cpf-theme-yeltsin.yc-detail-page .yc-detail-fallback {
+    font-size: 24px;
+    line-height: 1.7;
+    color: #111;
+}
+
+@media (max-width: 1100px) {
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-top {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-main {
+        padding-top: 0;
+    }
+
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-image-wrap {
+        margin-left: 0;
+        width: 100%;
+        max-width: 520px;
+    }
+
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-title {
+        font-size: 52px;
+    }
+}
+
+@media (max-width: 700px) {
+    .cpf-theme-yeltsin.yc-detail-page .yc-container {
+        padding: 0 18px;
+    }
+
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-datebox {
+        position: relative;
+        width: 150px;
+        margin-bottom: 18px;
+    }
+
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-datebox__days {
+        font-size: 42px;
+    }
+
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-datebox__months {
+        font-size: 18px;
+    }
+
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-title {
+        font-size: 38px;
+    }
+
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-admission {
+        font-size: 22px;
+    }
+
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-richtext,
+    .cpf-theme-yeltsin.yc-detail-page .yc-detail-richtext p {
+        font-size: 20px;
+    }
+}
+
+/* =========================================================
+   YELTSIN CENTER — AFISHA STYLE OVERRIDE
+   ========================================================= */
+
+.cpf-theme-yeltsin {
+    background: #f5f6f8 !important;
+    color: #000 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* Hide previous Yeltsin elements if they still exist */
+.cpf-theme-yeltsin .yc-top-tabs-wrap,
+.cpf-theme-yeltsin .yc-pills-wrap,
+.cpf-theme-yeltsin .yc-hero {
     display: none !important;
 }
 
-.cpf-events-listing-page .cpf-custom-events,
-.cpf-events-listing-page .cpf-custom-events * {
-    display: revert;
+/* Header and Footer*/
+body:has(.cpf-theme-yeltsin) #wrapwrap #top.o_header_standard,
+body:has(.cpf-theme-yeltsin) #wrapwrap #top.o_header_fixed,
+body:has(.cpf-theme-yeltsin) #wrapwrap header,
+body:has(.cpf-theme-yeltsin) #wrapwrap nav.navbar {
+    background-color: #2569ff !important;
+    border-bottom: 1px solid #fff;
+}
+
+body:has(.cpf-theme-yeltsin) #wrapwrap #top *,
+body:has(.cpf-theme-yeltsin) #wrapwrap nav.navbar * {
+    color: #ffffff !important;
+}
+
+body:has(.cpf-theme-yeltsin) #wrapwrap #top .btn-primary,
+body:has(.cpf-theme-yeltsin) #wrapwrap nav .btn-primary {
+    background: #ffffff !important;
+    border-color: #ffffff !important;
+    color: #2569ff !important;
+}
+
+body:has(.cpf-theme-yeltsin) #wrapwrap #top .nav-link:hover,
+body:has(.cpf-theme-yeltsin) #wrapwrap #top_menu a:hover {
+    color: #fff !important;
+}
+
+body:has(.cpf-theme-yeltsin) .o_footer {
+    background-color: #0a0a0a !important;
+}
+
+body:has(.cpf-theme-yeltsin) .o_footer a,
+body:has(.cpf-theme-yeltsin) .o_footer p,
+body:has(.cpf-theme-yeltsin) .o_footer i,
+body:has(.cpf-theme-yeltsin) .o_footer span {
+    color: #e8e0d0 !important;
+}
+
+body:has(.cpf-theme-yeltsin) .o_footer h5 { color: #fff !important; }
+body:has(.cpf-theme-yeltsin) .o_footer .rounded-circle::before { color: #000 !important; }
+
+/* Blue Afisha hero */
+.cpf-theme-yeltsin .yc-afisha-hero {
+    background: #2569ff;
+    min-height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.cpf-theme-yeltsin .yc-afisha-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.cpf-theme-yeltsin .yc-afisha-title {
+    font-size: 58px;
+    line-height: 1;
+    font-weight: 900;
+    margin: 0;
+    color: #fff;
+}
+
+.cpf-theme-yeltsin .yc-city-switch {
+    display: flex;
+    align-items: center;
+    background: #1d4fc1;
+    border-radius: 999px;
+    padding: 5px;
+    gap: 4px;
+}
+
+.cpf-theme-yeltsin .yc-city {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 22px;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+}
+
+.cpf-theme-yeltsin .yc-city.active {
+    background: #fff;
+    color: #2569ff;
+}
+
+/* Filter bar */
+.cpf-theme-yeltsin .yc-filter-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #2569ff;
+    color: #fff;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.cpf-theme-yeltsin .yc-filter-item {
+    height: 94px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    border-right: 1px solid rgba(255,255,255,0.16);
+    position: relative;
+}
+
+.cpf-theme-yeltsin .yc-filter-item.active::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-bottom: 13px solid #f5f6f8;
+}
+
+/* Today bar */
+.cpf-theme-yeltsin .yc-today-bar {
+    height: 92px;
+    background: #f5f6f8;
+    color: #2569ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+}
+
+/* List */
+.cpf-theme-yeltsin .yc-list {
+    background: #fff !important;
+    padding: 78px 0 100px !important;
+}
+
+.cpf-theme-yeltsin .yc-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.cpf-theme-yeltsin .yc-event-row {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr) 270px;
+    gap: 48px;
+    align-items: start;
+    padding: 54px 0;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.cpf-theme-yeltsin .yc-event-image-wrap {
+    width: 100%;
+}
+
+.cpf-theme-yeltsin .yc-event-image {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    background: #f0f0f0;
+}
+
+.cpf-theme-yeltsin .yc-event-content {
+    padding-top: 4px;
+}
+
+.cpf-theme-yeltsin .yc-event-tag {
+    color: #2569ff;
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 22px;
+}
+
+.cpf-theme-yeltsin .yc-event-title {
+    margin: 0 0 22px;
+    font-size: 42px;
+    line-height: 1.08;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: #000;
+}
+
+.cpf-theme-yeltsin .yc-event-title a {
+    color: #000 !important;
+    text-decoration: none !important;
+}
+
+.cpf-theme-yeltsin .yc-event-title a:hover {
+    color: #2569ff !important;
+}
+
+.cpf-theme-yeltsin .yc-event-desc {
+    max-width: 700px;
+    font-size: 20px;
+    line-height: 1.55;
+    color: #000;
+}
+
+.cpf-theme-yeltsin .yc-event-meta {
+    min-height: 260px;
+    border-left: 1px solid #e0e0e0;
+    padding-left: 48px;
+    color: #000;
+    font-size: 19px;
+    line-height: 1.45;
+}
+
+.cpf-theme-yeltsin .yc-event-meta .meta-big {
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 400;
+    margin-bottom: 24px;
+}
+
+.cpf-theme-yeltsin .yc-event-meta .meta-small {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.cpf-theme-yeltsin .yc-event-meta::before {
+    content: "●";
+    display: block;
+    color: #2569ff;
+    font-size: 42px;
+    line-height: 1;
+    margin: 40px 0 20px;
+}
+
+/* Make global Odoo header less intrusive for this theme */
+.cpf-theme-yeltsin.cpf-events-listing-page,
+.cpf-events-listing-page .cpf-theme-yeltsin {
+    background: #fff !important;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .cpf-theme-yeltsin .yc-event-row {
+        grid-template-columns: 220px 1fr;
+    }
+
+    .cpf-theme-yeltsin .yc-event-image {
+        width: 220px;
+        height: 220px;
+    }
+
+    .cpf-theme-yeltsin .yc-event-meta {
+        grid-column: 2;
+        min-height: auto;
+        padding-left: 0;
+        border-left: none;
+    }
+
+    .cpf-theme-yeltsin .yc-filter-bar {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .cpf-theme-yeltsin .yc-main-header {
+        grid-template-columns: 80px 180px 1fr 80px;
+    }
+
+    .cpf-theme-yeltsin .yc-logo {
+        padding-left: 24px;
+        font-size: 24px;
+    }
+
+    .cpf-theme-yeltsin .yc-afisha-title-wrap {
+        flex-direction: column;
+        gap: 22px;
+    }
+
+    .cpf-theme-yeltsin .yc-afisha-title {
+        font-size: 44px;
+    }
+
+    .cpf-theme-yeltsin .yc-event-row {
+        grid-template-columns: 1fr;
+    }
+
+    .cpf-theme-yeltsin .yc-event-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    .cpf-theme-yeltsin .yc-event-meta {
+        grid-column: auto;
+    }
+}
+/* =========================================================
+   FIX: hide default Odoo event listing when custom template is active
+   ========================================================= */
+
+#wrap.cpf-events-listing-page > .container,
+#wrap.cpf-events-listing-page > section:not(.cpf-events-hero),
+#wrap.cpf-events-listing-page > main {
+    display: none !important;
+}
+
+#wrap.cpf-events-listing-page > .cpf-custom-events {
+    display: block !important;
+}
+
+/* Make sure custom Yeltsin containers are visible */
+#wrap.cpf-events-listing-page .cpf-custom-events .yc-container,
+#wrap.cpf-events-listing-page .cpf-custom-events .yc-list,
+#wrap.cpf-events-listing-page .cpf-custom-events .yc-event-row {
+    display: block;
+}
+
+#wrap.cpf-events-listing-page .cpf-custom-events .yc-event-row {
+    display: grid !important;
+}
+/* =========================================================
+   EMERGENCY FIX: Yeltsin custom only, Louvre/Hermitage normal
+   ========================================================= */
+
+/* Hide Yeltsin custom block unless Yeltsin theme is active */
+#wrap:not(.cpf-theme-yeltsin) .yc-custom-page {
+    display: none !important;
+}
+
+/* For Yeltsin: hide standard Odoo listing/topbar/drag-drop areas */
+#wrap.cpf-theme-yeltsin > .container,
+#wrap.cpf-theme-yeltsin > .o_wevent_events_list,
+#wrap.cpf-theme-yeltsin > .oe_structure {
+    display: none !important;
+}
+
+/* For Yeltsin: show custom page */
+#wrap.cpf-theme-yeltsin .yc-custom-page {
+    display: block !important;
+}
+
+/* Restore proper grid inside Yeltsin list */
+#wrap.cpf-theme-yeltsin .yc-event-row {
+    display: grid !important;
+}
+/* =========================================================
+   FIX YELTSIN: hide old Louvre/Hermitage hero
+   ========================================================= */
+
+.cpf-events-hero.cpf-theme-yeltsin,
+.cpf-events-hero.theme-yeltsin,
+.cpf-events-hero:has(+ #wrap.cpf-theme-yeltsin) {
+    display: none !important;
+}
+
+/* If Yeltsin custom page is active, remove extra spacing from injected old hero area */
+#wrap.cpf-theme-yeltsin {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Ensure Yeltsin custom page starts immediately */
+#wrap.cpf-theme-yeltsin .yc-custom-page,
+#wrap.cpf-theme-yeltsin .cpf-theme-yeltsin {
+    margin-top: 0 !important;
+}
+
+
+/* =========================================================
+   CPF / DEFAULT DETAIL FALLBACK
+   ========================================================= */
+
+.cpf-default-detail {
+    background: #f5f7fb;
+    padding: 80px 0;
+    min-height: 600px;
+}
+
+.cpf-default-detail__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 60px;
+}
+
+.cpf-default-detail__title {
+    font-size: 56px;
+    line-height: 1.05;
+    font-weight: 800;
+    margin: 0 0 24px;
+    color: #111;
+}
+
+.cpf-default-detail__date {
+    font-size: 20px;
+    margin-bottom: 36px;
+    color: #334;
+}
+
+.cpf-default-detail__description {
+    font-size: 20px;
+    line-height: 1.75;
+    color: #111;
+}
+
+.cpf-default-detail__side {
+    background: #fff;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+.cpf-default-detail__side-row {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 24px;
+    font-size: 18px;
+}
+
+.cpf-default-detail__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    background: #2569ff;
+    color: #fff !important;
+    border-radius: 999px;
+    text-decoration: none !important;
+    font-weight: 800;
+}
+
+@media (max-width: 900px) {
+    .cpf-default-detail__container {
+        grid-template-columns: 1fr;
+    }
 }

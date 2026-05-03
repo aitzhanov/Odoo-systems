@@ -1,25 +1,6 @@
-# Odoo / Python
-__pycache__/
 *.pyc
-*.pyo
-*.pyd
-*.log
-
-# Local Odoo data
-odoo-data/
-postgres-data/
-*.dump
-*.backup
-
-# Docker / local env
+__pycache__/
 .env
-.env.*
-!.env.example
-
-# IDE
-.vscode/
-.idea/
-
-# OS
-.DS_Store
-Thumbs.db
+*.log
+filestore/
+sessions/

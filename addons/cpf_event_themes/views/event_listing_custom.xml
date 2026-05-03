@@ -2,8 +2,7 @@
   <template id="event_listing_custom_layout" inherit_id="website_event.index">
     <xpath expr="//div[@id='wrap']" position="inside">
       <t t-set="active_theme_class" t-value="request.env['cpf.event.theme'].sudo().get_active_listing_theme_class()"/>
-      <t t-set="published_events" t-value="request.env['event.event'].sudo().search([('website_published', '=', True)], order='date_begin asc', limit=8)"/>
-
+      <t t-set="published_events" t-value="request.env['event.event'].sudo().search([], order='date_begin asc', limit=8)"/> 
       <div t-attf-class="cpf-custom-events #{active_theme_class}">
 
         <!-- =========================
@@ -25,39 +24,36 @@
               <div class="cpf-louvre-filter-small">Age</div>
             </div>
 
-            <div class="cpf-louvre-month">APRIL 2026</div>
+            <div class="cpf-louvre-month">May 2026</div>
+
+            
 
             <t t-foreach="published_events" t-as="event">
-              <article class="cpf-louvre-row">
-                <div class="cpf-louvre-row__date">
-                  <div class="cpf-louvre-row__date-line" t-esc="event.date_begin.strftime('%d %B %Y') if event.date_begin else ''"/>
-                  <div class="cpf-louvre-row__date-line" t-if="event.date_end" t-esc="event.date_end.strftime('%d %B %Y')"/>
-                </div>
+              <article t-attf-class="cpf-louvre-row {{ '' if event.is_published else 'cpf-louvre-row--unpublished' }}" t-att-data-href="event.website_url"
+         onclick="window.location=this.dataset.href">
+                  <div class="cpf-louvre-row__date">
+                    <div class="cpf-louvre-row__date-line" t-esc="event.date_begin.strftime('%d %B %Y') if event.date_begin else ''"/>
+                    <div class="cpf-louvre-row__date-line" t-if="event.date_end" t-esc="event.date_end.strftime('%d %B %Y')"/>
+                  </div>
 
-                <div class="cpf-louvre-row__image">
-                  <a t-att-href="event.website_url">
-                    <img t-if="event.badge_image"
-                         t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
-                         t-att-alt="event.name"/>
-                  </a>
-                </div>
+                  <div class="cpf-louvre-row__image">
+    <img class="cpf-louvre-row__img"
+              t-att-src="('/web/image/event.event/%s/badge_image' % event.id if event.badge_image else '/cpf_event_themes/static/src/img/elt1.jpg')"
+              t-att-alt="event.name"/>
+</div>
 
                 <div class="cpf-louvre-row__content">
                   <div class="cpf-louvre-badge">Workshops</div>
                   <h3 class="cpf-louvre-title">
-                    <a t-att-href="event.website_url" t-esc="event.name"/>
+                    <a t-att-href="event.website_url" class="cpf-louvre-main-link" t-esc="event.name"/>
                   </h3>
-                  <div class="cpf-louvre-meta" t-if="event.date_begin">
-                    From <span t-esc="event.date_begin.strftime('%d %B %Y')"/> 
-                    <t t-if="event.date_end">to <span t-esc="event.date_end.strftime('%d %B %Y')"/></t>
-                  </div>
                   <div class="cpf-louvre-location" t-if="event.address_id">
                     <span t-esc="event.address_id.city or event.address_id.name or 'Museum location'"/>
                   </div>
                 </div>
 
                 <div class="cpf-louvre-row__cta">
-                  <a t-att-href="event.website_url" class="cpf-louvre-discover">Discover →</a>
+                   <a class="cpf-louvre-discover">Discover →</a>
                 </div>
               </article>
             </t>
@@ -70,10 +66,10 @@
         <t t-if="'theme-hermitage' in active_theme_class">
           <t t-foreach="published_events[:1]" t-as="event">
             <section class="cpf-hermitage-feature">
-              <img t-if="event.badge_image"
-                   t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
-                   t-att-alt="event.name"
-                   class="cpf-hermitage-feature__img"/>
+
+              <img class="cpf-hermitage-feature__img"
+              t-att-src="('/web/image/event.event/%s/badge_image' % event.id if event.badge_image else '/cpf_event_themes/static/src/img/elt1.jpg')"
+              t-att-alt="event.name"/>
 
               <div class="cpf-hermitage-feature__overlay"></div>
 
@@ -103,14 +99,13 @@
             </div>
 
             <div class="cpf-hermitage-grid">
-              <t t-foreach="published_events[1:7]" t-as="event">
+              <t t-foreach="published_events[0:7]" t-as="event">
                 <article class="cpf-hermitage-card">
                   <div class="cpf-hermitage-card__imgwrap">
                     <a t-att-href="event.website_url">
-                      <img t-if="event.badge_image"
-                           t-att-src="'/web/image/event.event/%s/badge_image' % event.id"
-                           t-att-alt="event.name"
-                           class="cpf-hermitage-card__img"/>
+                      <img class="cpf-hermitage-card__img"
+              t-att-src="('/web/image/event.event/%s/badge_image' % event.id if event.badge_image else '/cpf_event_themes/static/src/img/elt1.jpg')"
+              t-att-alt="event.name"/>
                     </a>
                   </div>
 
@@ -128,7 +123,7 @@
                       <span t-esc="event.address_id.name or event.address_id.city"/>
                     </div>
 
-                    <a t-att-href="event.website_url" class="cpf-hermitage-card__more">Подробнее ›</a>
+                    <div class="cpf-hermitage-card__description" t-field="event.description"/>
                   </div>
                 </article>
               </t>
@@ -136,6 +131,101 @@
           </section>
         </t>
 
+        <t t-elif="'cpf-theme-yeltsin' in active_theme_class">
+          <div class="cpf-theme-yeltsin yc-custom-page">
+
+            <section class="yc-afisha-hero">
+              <div class="yc-afisha-title-wrap">
+                <h1 class="yc-afisha-title">Афиша</h1>
+                <div class="yc-city-switch">
+                  <span class="yc-city">ЕКАТЕРИНБУРГ</span>
+                  <span class="yc-city active">МОСКВА</span>
+                </div>
+              </div>
+            </section>
+
+            <div class="yc-filter-bar">
+              <div class="yc-filter-item">☰ ВЫБРАТЬ СОБЫТИЕ</div>
+              <div class="yc-filter-item active">▣ ВЫБРАТЬ ДАТУ</div>
+              <div class="yc-filter-item">● ВЫБРАТЬ ПЛОЩАДКУ</div>
+            </div>
+
+            <div class="yc-today-bar">
+              ВЫБРАТЬ СОБЫТИЯ СЕГОДНЯ
+            </div>
+
+            <section class="yc-list">
+              <div class="yc-container">
+                <t t-foreach="published_events" t-as="event">
+                  <article class="yc-event-row">
+                    <div class="yc-event-image-wrap">
+                      <a t-att-href="event.website_url">
+                        <t t-set="img_src"
+                          t-value="'/cpf_event_themes/static/src/img/elt1.jpg' if event.name == 'event1'
+                                    else '/cpf_event_themes/static/src/img/elt2.jpg' if event.name == 'event2'
+                                    else '/cpf_event_themes/static/src/img/elt3.jpg' if event.name == 'event3'
+                                    else ('/web/image/event.event/%s/badge_image' % event.id if event.badge_image else '/cpf_event_themes/static/src/img/elt1.jpg')"/>
+
+                        <img class="yc-event-image"
+                            t-att-src="img_src"
+                            t-att-alt="event.name"/>
+                      </a>
+                    </div>
+
+                    <div class="yc-event-content">
+                      <div class="yc-event-tag">
+                        <t t-out="event.event_type_id.name if event.event_type_id else 'Событие'"/>
+                      </div>
+
+                      <h2 class="yc-event-title">
+                        <a t-att-href="event.website_url">
+                          <t t-out="event.name"/>
+                        </a>
+                      </h2>
+
+                      <div class="yc-event-desc">
+                        <t t-if="event.subtitle">
+                          <t t-out="event.subtitle"/>
+                        </t>
+                        <t t-else="">
+                          <span>Описание события.</span>
+                        </t>
+                      </div>
+                    </div>
+
+                    <div class="yc-event-meta">
+                      <div class="meta-big">
+                        <t t-if="event.date_end">
+                          до <t t-out="event.date_end.strftime('%d %B')"/>
+                        </t>
+                        <t t-elif="event.date_begin">
+                          <t t-out="event.date_begin.strftime('%d %B')"/>
+                        </t>
+                      </div>
+
+                      <span class="meta-small">
+                        <t t-if="event.date_begin">
+                          <t t-out="event.date_begin.strftime('%H:%M')"/>
+                        </t>
+                        <t t-if="event.date_end">
+                          — <t t-out="event.date_end.strftime('%H:%M')"/>
+                        </t>
+                      </span>
+
+                      <span class="meta-small">Вход свободный</span>
+                      <span class="yc-location-dot">●</span>
+
+                      <span class="meta-small yc-location">
+                        <t t-out="event.address_id.name if event.address_id else 'Музей'"/>
+                      </span>
+                    </div>
+                  </article>
+                </t>
+              </div>
+            </section>
+
+          </div>
+        </t>
       </div>
     </xpath>
   </template>
