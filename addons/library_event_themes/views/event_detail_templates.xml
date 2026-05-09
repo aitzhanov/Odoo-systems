@@ -1,0 +1,329 @@
+<odoo>
+  <template id="event_detail_library_theme_wrapper" inherit_id="website_event.layout">
+    <xpath expr="//div[@id='wrap']" position="attributes">
+      <attribute name="t-attf-class">
+        o_wevent_event js_event d-flex flex-column h-100
+        #{'o_wevent_hide_sponsors' if hide_sponsors else ''}
+        #{'o_library_event_theme %s' % event.library_theme_id.css_class if event and event.library_theme_id else ''}
+      </attribute>
+    </xpath>
+  </template>
+
+  <template id="event_detail_library_metadata" inherit_id="website_event.event_description_dates">
+    <xpath expr="//div[contains(@t-attf-class, 'o_wevent_dates_block')]" position="before">
+      <section t-if="event.library_theme_id" class="o_library_event_theme_meta">
+        <div class="o_library_event_theme_meta__label">
+          <t t-out="event.library_theme_id.name"/>
+        </div>
+        <div class="o_library_event_theme_meta__items">
+          <span t-if="event.date_begin" class="o_library_event_theme_meta__item">
+            Date: <t t-out="event.date_begin.strftime('%B %-d, %Y')"/>
+          </span>
+          <span t-if="event.date_begin" class="o_library_event_theme_meta__item">
+            Time: <t t-out="event.date_begin.strftime('%-I:%M %p')"/>
+          </span>
+          <span t-if="event.address_id" class="o_library_event_theme_meta__item">
+            Location: <t t-out="event.address_id.name"/>
+          </span>
+          <span t-if="event.event_type_id" class="o_library_event_theme_meta__item">
+            Organizer: <t t-out="event.organizer_id.name if event.organizer_id else event.event_type_id.name"/>
+          </span>
+        </div>
+        <div t-if="event.library_theme_id.code == 'loc'" class="o_library_loc_detail_actions">
+          <a href="#registration" class="btn btn-primary">Register</a>
+          <a t-att-href="event.website_url" class="btn btn-secondary">Add to calendar</a>
+        </div>
+      </section>
+    </xpath>
+  </template>
+
+  <template id="event_detail_loc_custom_layout" inherit_id="website_event.event_details" priority="110">
+    <xpath expr="//div[@name='event']" position="before">
+      <t t-if="event.library_theme_id and event.library_theme_id.code == 'loc'">
+        <header class="o_library_loc_site_header o_library_event_theme o_library_theme_loc o_library_loc_detail_header">
+          <div class="o_library_loc_topline"/>
+          <div class="container">
+            <div class="o_library_loc_header_main">
+              <a href="/event" class="o_library_loc_brand">
+                <span class="o_library_loc_brand__main">LIBRARY</span>
+                <span class="o_library_loc_brand__sub">LIBRARY OF CONGRESS</span>
+              </a>
+              <div class="o_library_loc_header_tools">
+                <form class="o_library_loc_search" action="/event" method="get">
+                  <input type="search" name="search" placeholder="Search"/>
+                  <button type="submit">Search</button>
+                </form>
+                <button type="button" class="o_library_loc_menu" aria-label="Menu">
+                  <span/>
+                  <span/>
+                  <span/>
+                </button>
+              </div>
+            </div>
+            <div class="o_library_loc_breadcrumb">
+              <div>
+                <i class="fa fa-home" aria-hidden="true"/>
+                <span>/</span>
+                <a href="/event">Events at the Library of Congress</a>
+                <span>/</span>
+                <span t-out="event.name"/>
+              </div>
+              <a href="#" class="o_library_loc_share">Share</a>
+            </div>
+          </div>
+        </header>
+
+        <section class="o_library_loc_detail_page o_library_event_theme o_library_theme_loc">
+          <div class="container">
+            <div class="o_library_loc_layout">
+              <aside class="o_library_loc_sidebar">
+                <section class="o_library_loc_sidebar_section">
+                  <h2>Browse by:</h2>
+                  <h3>Select Date</h3>
+                  <form class="o_library_loc_date_form" action="/event" method="get">
+                    <input type="text" name="date" placeholder="mm/dd/yyyy"/>
+                    <button type="submit">Go</button>
+                  </form>
+                </section>
+                <section class="o_library_loc_sidebar_section">
+                  <h3>Browse by Event Category:</h3>
+                  <ul class="o_library_loc_link_list o_library_loc_link_list--bars">
+                    <li><a href="/event">Concerts &amp; Performances</a></li>
+                    <li><a href="/event">Courses &amp; Workshops</a></li>
+                    <li><a href="/event">Exhibits &amp; Tours</a></li>
+                    <li><a href="/event">Film &amp; Video Screenings</a></li>
+                    <li><a href="/event">Lectures &amp; Symposia</a></li>
+                    <li><a href="/event">Meetings &amp; Conferences</a></li>
+                    <li><a href="/event">Special Events</a></li>
+                  </ul>
+                </section>
+                <section class="o_library_loc_sidebar_section">
+                  <h3>Browse by Event Location:</h3>
+                  <ul class="o_library_loc_link_list">
+                    <li><a href="/event">Main Campus</a></li>
+                    <li><a href="/event">Packard Campus</a></li>
+                    <li><a href="/event">Off-Site Locations</a></li>
+                    <li><a href="/event">Online Only</a></li>
+                  </ul>
+                </section>
+                <section class="o_library_loc_sidebar_section">
+                  <h3>Related Resources:</h3>
+                  <ul class="o_library_loc_link_list">
+                    <li><a href="/event">Plan Your Visit</a></li>
+                    <li><a href="/event">Library of Congress Blog</a></li>
+                  </ul>
+                </section>
+              </aside>
+
+              <main class="o_library_loc_detail_main">
+                <div class="o_library_loc_event_label">
+                  EVENT
+                  <t t-if="event.event_type_id">
+                    | <t t-out="event.event_type_id.name.upper()"/>
+                  </t>
+                </div>
+                <h1 class="o_library_loc_detail_title" t-out="event.name"/>
+
+                <section class="o_library_loc_detail_info">
+                  <div class="o_library_loc_detail_info__grid">
+                    <div>
+                      <h2>Date</h2>
+                      <p t-if="event.date_begin" t-out="event.date_begin.strftime('%A, %B %-d, %Y')"/>
+                    </div>
+                    <div>
+                      <h2>Time</h2>
+                      <p t-if="event.date_begin">
+                        <t t-out="event.date_begin.strftime('%-I:%M %p')"/>
+                        <t t-if="event.date_end"> - <t t-out="event.date_end.strftime('%-I:%M %p')"/></t>
+                      </p>
+                      <a t-att-href="event.website_url">Add to calendar</a>
+                    </div>
+                    <div>
+                      <h2>Location</h2>
+                      <p t-out="event.address_id.name if event.address_id else 'Online Event'"/>
+                      <a t-if="event.address_id" t-att-href="event.website_url">Directions</a>
+                    </div>
+                  </div>
+                  <p class="o_library_loc_detail_intro">
+                    <t t-if="event.subtitle" t-out="event.subtitle"/>
+                    <t t-else="">Program details and registration information for this Library event are available below.</t>
+                  </p>
+                  <div class="o_library_loc_detail_actions">
+                    <a href="#registration" class="btn btn-primary">Register</a>
+                    <a t-att-href="event.website_url" class="btn btn-secondary">Add to calendar</a>
+                  </div>
+                </section>
+
+                <section class="o_library_loc_detail_body">
+                  <div class="o_library_loc_detail_body__content">
+                    <div class="o_library_loc_description">
+                      <t t-if="event.description">
+                        <div t-field="event.description"/>
+                      </t>
+                      <p t-else="">Additional event information will be posted as it becomes available.</p>
+                    </div>
+                    <section class="o_library_loc_detail_section">
+                      <h2>Admission</h2>
+                      <p>Review registration details for this event before attending.</p>
+                    </section>
+                    <section class="o_library_loc_detail_section">
+                      <h2>Arrival and Entry</h2>
+                      <p>Please allow time for arrival, check-in, and seating.</p>
+                    </section>
+                    <section class="o_library_loc_detail_section">
+                      <h2>Security</h2>
+                      <p>Visitor entry procedures may apply for on-site programs.</p>
+                    </section>
+                  </div>
+                  <figure class="o_library_loc_detail_poster">
+                    <img src="/library_event_themes/static/src/img/eventLOC.jpg"
+                         t-att-alt="event.name"
+                         loading="lazy"/>
+                  </figure>
+                </section>
+              </main>
+            </div>
+          </div>
+        </section>
+      </t>
+    </xpath>
+  </template>
+
+  <template id="event_detail_bl_custom_layout" inherit_id="website_event.event_details" priority="111">
+    <xpath expr="//div[@name='event']" position="before">
+      <t t-if="event.library_theme_id and event.library_theme_id.code == 'bl'">
+        <header class="o_library_bl_header o_library_event_theme o_library_theme_bl o_library_bl_detail_header">
+          <div class="container">
+            <div class="o_library_bl_header__inner">
+              <div class="o_library_bl_header__tools">
+                <span>My account</span>
+                <span>Basket</span>
+              </div>
+              <nav class="o_library_bl_nav" aria-label="British Library inspired navigation">
+                <a href="/event">Collections</a>
+                <a href="/event">What's on</a>
+                <a href="/event">Visit</a>
+                <a href="/event">Stories</a>
+                <button type="button" aria-label="Menu">
+                  <span/>
+                  <span/>
+                  <span/>
+                </button>
+              </nav>
+              <a href="/event" class="o_library_bl_brand">
+                <span>BRITISH</span>
+                <span>LIBRARY</span>
+              </a>
+            </div>
+          </div>
+        </header>
+
+        <section class="o_library_bl_detail_page o_library_event_theme o_library_theme_bl">
+          <div class="container">
+            <div class="o_library_bl_detail_hero">
+              <figure class="o_library_bl_detail_hero__image">
+                <img src="/library_event_themes/static/src/img/eventBL.jpg"
+                     t-att-alt="event.name"
+                     loading="lazy"/>
+              </figure>
+            </div>
+
+            <div class="o_library_bl_detail_layout">
+              <aside class="o_library_bl_detail_summary">
+                <div class="o_library_bl_location">British Library, London</div>
+                <div class="o_library_bl_event_card__topline">
+                  <span class="o_library_bl_free">Free</span>
+                  <span>Family</span>
+                  <span>Culture</span>
+                </div>
+                <h1 t-out="event.name"/>
+                <p class="o_library_bl_detail_excerpt">
+                  <t t-if="event.subtitle" t-out="event.subtitle"/>
+                  <t t-else="">Explore this British Library-style event and plan your visit.</t>
+                </p>
+
+                <div class="o_library_bl_detail_fact">
+                  <span>Opening / availability</span>
+                  <strong t-if="event.date_begin">
+                    <t t-out="event.date_begin.strftime('%d %B %Y, %H:%M')"/>
+                  </strong>
+                  <strong t-else="">Details to be confirmed</strong>
+                </div>
+                <div class="o_library_bl_detail_fact">
+                  <span>Location</span>
+                  <strong t-out="event.address_id.name if event.address_id else 'Online event'"/>
+                </div>
+                <div class="o_library_bl_detail_fact">
+                  <span>Price</span>
+                  <strong>Free</strong>
+                </div>
+                <div class="o_library_bl_detail_fact">
+                  <span>Accessibility information</span>
+                  <strong>See event information before booking</strong>
+                </div>
+
+                <div class="o_library_bl_detail_actions">
+                  <a href="#registration" class="o_library_bl_button o_library_bl_button--large">Book now</a>
+                  <a t-att-href="event.website_url" class="o_library_bl_button o_library_bl_button--secondary">More info</a>
+                </div>
+              </aside>
+
+              <main class="o_library_bl_detail_maincopy">
+                <section class="o_library_bl_detail_text">
+                  <h2>About this event</h2>
+                  <div t-if="event.description" t-field="event.description"/>
+                  <p t-else="">More information about this event will be available soon.</p>
+                </section>
+
+                <section class="o_library_bl_detail_whenwhere">
+                  <div>
+                    <h3>Date and time</h3>
+                    <p t-if="event.date_begin">
+                      <t t-out="event.date_begin.strftime('%d %B %Y, %H:%M')"/>
+                      <t t-if="event.date_end"> - <t t-out="event.date_end.strftime('%H:%M')"/></t>
+                    </p>
+                  </div>
+                  <div>
+                    <h3>Location</h3>
+                    <p t-out="event.address_id.name if event.address_id else 'Online event'"/>
+                  </div>
+                </section>
+              </main>
+            </div>
+
+            <section class="o_library_bl_more_info">
+              <h2>More information</h2>
+              <div class="o_library_bl_accordion">
+                <button type="button">Opening times <span>+</span></button>
+                <button type="button">Accessibility and facilities <span>+</span></button>
+                <button type="button">Hear more about our events and exhibitions <span>+</span></button>
+              </div>
+            </section>
+          </div>
+        </section>
+      </t>
+    </xpath>
+  </template>
+
+  <template id="event_detail_bl_suppress_default_payload" inherit_id="website_event.event_details" priority="120">
+    <xpath expr="//div[@name='event']" position="replace">
+      <div t-if="not (event.library_theme_id and event.library_theme_id.code == 'bl')"
+           class="h-100"
+           name="event"
+           itemscope="itemscope"
+           itemtype="http://schema.org/Event">
+        <meta itemprop="startDate" t-attf-content="{{event.date_begin}}Z"/>
+        <meta itemprop="endDate" t-attf-content="{{event.date_end}}Z"/>
+        <t t-out="0"/>
+      </div>
+      <div t-else=""
+           class="o_library_bl_default_payload_suppressed"
+           name="event"
+           itemscope="itemscope"
+           itemtype="http://schema.org/Event">
+        <meta itemprop="startDate" t-attf-content="{{event.date_begin}}Z"/>
+        <meta itemprop="endDate" t-attf-content="{{event.date_end}}Z"/>
+      </div>
+    </xpath>
+  </template>
+</odoo>

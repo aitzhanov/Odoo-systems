@@ -1,0 +1,18 @@
+<odoo>
+  <record id="view_event_form_library_theme_inherit" model="ir.ui.view">
+    <field name="name">event.event.form.library.theme.inherit</field>
+    <field name="model">event.event</field>
+    <field name="inherit_id" ref="event.view_event_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='tag_ids']" position="after">
+        <field name="library_theme_id" placeholder="Choose a library theme..."/>
+      </xpath>
+      <xpath expr="//form/header" position="inside">
+        <button name="action_cycle_library_theme"
+                type="object"
+                string="Switch Library Theme"
+                class="btn-secondary"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_library_event_theme_user,library.event.theme.user,model_library_event_theme,base.group_user,1,1,1,1
+access_library_event_theme_public,library.event.theme.public,model_library_event_theme,base.group_public,1,0,0,0
+access_library_event_theme_portal,library.event.theme.portal,model_library_event_theme,base.group_portal,1,0,0,0

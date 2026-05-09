@@ -1,0 +1,19 @@
+<odoo noupdate="1">
+  <record id="library_event_theme_loc" model="library.event.theme">
+    <field name="name">Library of Congress Style</field>
+    <field name="code">loc</field>
+    <field name="css_class">o_library_theme_loc</field>
+    <field name="description">Structured institutional style for public programs, archives, lectures, and civic events.</field>
+    <field name="sequence">10</field>
+    <field name="active">True</field>
+  </record>
+
+  <record id="library_event_theme_bl" model="library.event.theme">
+    <field name="name">British Library Style</field>
+    <field name="code">bl</field>
+    <field name="css_class">o_library_theme_bl</field>
+    <field name="description">Contemporary cultural event style with bold headings, generous spacing, and strong cards.</field>
+    <field name="sequence">20</field>
+    <field name="active">True</field>
+  </record>
+</odoo>
